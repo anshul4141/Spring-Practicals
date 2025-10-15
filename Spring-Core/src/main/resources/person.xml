@@ -3,13 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- <bean id="person" class="com.rays.test.Person"> <property name="name" 
-		value="Ram" /> <property name="address" value="Indore" /> </bean> <bean id="person1" 
-		class="com.rays.test.Person"> <property name="name" value="Shyam" /> <property 
-		name="address" value="Bhopal" /> </bean> -->
-
 	<bean id="person" class="com.rays.test.Person">
+		<property name="name" value="Ram" />
+		<property name="address" value="Indore" />
+	</bean>
+
+
+	<!-- <bean id="person" class="com.rays.test.Person">
 		<constructor-arg value="Ram"></constructor-arg>
 		<constructor-arg value="Bhopal"></constructor-arg>
-	</bean>
+	</bean> -->
 </beans>
