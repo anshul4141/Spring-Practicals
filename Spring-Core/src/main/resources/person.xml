@@ -8,6 +8,8 @@
 		<property name="address" value="Indore" />
 	</bean>
 
+	<!-- <bean id="person1" class="com.rays.test.Person"> <property name="name" 
+		value="Shyam" /> <property name="address" value="Bhopal" /> </bean> -->
 
 	<!-- <bean id="person" class="com.rays.test.Person">
 		<constructor-arg value="Ram"></constructor-arg>
