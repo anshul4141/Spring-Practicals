@@ -6,7 +6,7 @@ public class Order1 {
 	private Inventory inventory;
 
 	// Setter injection
-	public void setPayment(Payment payment) {
+	public void setpayment(Payment payment) {
 		this.payment = payment;
 	}
 

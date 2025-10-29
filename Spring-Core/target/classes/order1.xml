@@ -22,7 +22,7 @@
 	</bean>
 
 	<bean name="order1" class="com.rays.ioc.Order1">
-		<property name="payment" ref="payment" />
+		<property name="Payment" ref="payment" />
 		<property name="inventory" ref="inventory" />
 	</bean>
 </beans>

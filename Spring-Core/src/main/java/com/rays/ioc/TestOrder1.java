@@ -9,7 +9,8 @@ public class TestOrder1 {
 
 		ApplicationContext context = new ClassPathXmlApplicationContext("order1.xml");
 
-		Order1 order = (Order1) context.getBean("order1");
+		// Order1 order = (Order1) context.getBean("order1");
+		Order1 order = context.getBean("order1", Order1.class);
 
 		order.bookATicket(6);
 	}
