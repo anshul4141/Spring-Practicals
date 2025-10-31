@@ -5,8 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="userService"
-		class="com.rays.autowire.byname.UserService" autowire="byName" />
+		class="com.rays.byname.UserService" autowire="byName" />
 
-	<bean id="userDao" class="com.rays.autowire.byname.UserDAOImpl" />
+	<bean id="userDao" class="com.rays.byname.UserDAOImpl" />
 
 </beans>

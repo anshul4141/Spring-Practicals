@@ -5,10 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="userService"
-		class="com.rays.autowire.byconstructor.UserService"
+		class="com.rays.byconstructor.UserService"
 		autowire="constructor" />
 
 	<bean id="userDao"
-		class="com.rays.autowire.byconstructor.UserDAOImpl" />
+		class="com.rays.byconstructor.UserDAOImpl" />
 
 </beans>

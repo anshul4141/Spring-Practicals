@@ -2,13 +2,13 @@ package com.rays.byconstructor;
 
 public class UserService {
 
-	private UserDAOInt userDao;
+	private UserDAOInt userDaoInt;
 
-	public UserService(UserDAOInt userDao) {
-		this.userDao = userDao;
+	public UserService(UserDAOInt userDaoInt) {
+		this.userDaoInt = userDaoInt;
 	}
 
 	public void testAdd() {
-		userDao.add();
+		userDaoInt.add();
 	}
 }

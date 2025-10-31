@@ -2,13 +2,13 @@ package com.rays.bytype;
 
 public class UserService {
 
-	private UserDAOInt userDao;
+	private UserDAOInt userDaoInt;
 
-	public void setUserDao(UserDAOInt userDao) {
-		this.userDao = userDao;
+	public void setUserDaoInt(UserDAOInt userDaoInt) {
+		this.userDaoInt = userDaoInt;
 	}
 
 	public void testAdd() {
-		userDao.add();
+		userDaoInt.add();
 	}
 }
