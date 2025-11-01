@@ -3,7 +3,7 @@ package com.rays.annotation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.rays.AppConfig;
+import com.rays.child.annotation.AppConfig;
 
 public class TestPerson {
 
