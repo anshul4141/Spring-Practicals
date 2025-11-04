@@ -1,0 +1,18 @@
+@Transactional(propagation = Propagation.REQUIRED)
+
+Ye line batati hai ki ye method (add) transaction ke andar chalega.
+
+@Transactional ka matlab hai ki Spring is method ko ek transaction context ke andar run karega — matlab agar kuch galat ho jaaye (exception aajaye), to saare database changes rollback (undo) ho jaayenge.
+
+propagation = Propagation.REQUIRED ka matlab hai:
+👉 Agar koi transaction already chal raha hai, to ye method usi existing transaction me join kar lega.
+👉 Agar koi transaction nahi chal raha, to ye naya transaction start karega.
+
+Example samjho:
+Agar ek service method add() ek aur dao method add() ko call karta hai, aur @Transactional(propagation = Propagation.REQUIRED) laga hai —
+to dono ek hi transaction me kaam karenge.
+Agar dao method add() me error aaya, to service method add() ka bhi data rollback ho jaayega.
+
+Short me:
+
+Ye ensure karta hai ki method transaction ke under chale — agar existing transaction hai to use join kare, warna naya bana le.
