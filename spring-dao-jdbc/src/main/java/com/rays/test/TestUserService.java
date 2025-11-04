@@ -20,19 +20,65 @@ public class TestUserService {
 
 		TestUserService test = (TestUserService) context.getBean("testUserService");
 
-		test.testAdd();
+//		test.testAdd();
+//		test.delete();
+//		test.testUpdate();
+		test.testfindByLogin();
+//		test.testAuthenticate();
 
 	}
 
-	public void testAdd() {
+	public void testAdd() throws Exception {
 		UserDTO dto = new UserDTO();
-		dto.setId(1);
-		dto.setFirstName("xyz");
-		dto.setLastName("xyz");
+		dto.setId(2);
+		dto.setFirstName("Ram");
+		dto.setLastName("Sharma");
 		dto.setLogin("admin");
 		dto.setPassword("pass1234");
 		long pk = service.add(dto);
 		System.out.println("Data Inserted... pk = " + pk);
+	}
+
+	private void delete() {
+		service.delete(1L);
+	}
+
+	public void testUpdate() {
+		UserDTO dto = new UserDTO();
+		dto.setId(1);
+		dto.setFirstName("ABC");
+		dto.setLastName("XYZ");
+		dto.setLogin("ABC@gmail.com");
+		dto.setPassword("pass1234");
+		service.update(dto);
+	}
+
+	private void testfindByLogin() {
+		UserDTO dto = service.findByLogin("admin");
+		if (dto != null) {
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLogin());
+			System.out.println("\t" + dto.getPassword());
+		} else {
+			System.out.println("User not exist..!!!");
+		}
+
+	}
+
+	private void testAuthenticate() {
+		UserDTO dto = service.authenticate("admin", "pass1234sfsf");
+		if (dto != null) {
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLogin());
+			System.out.println("\t" + dto.getPassword());
+		} else {
+			System.out.println("invalid login id or password");
+		}
+
 	}
 
 }
