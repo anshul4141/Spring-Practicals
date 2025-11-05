@@ -1,5 +1,8 @@
 package com.rays.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,21 +23,22 @@ public class TestUserService {
 
 		TestUserService test = (TestUserService) context.getBean("testUserService");
 
-//		test.testAdd();
+		test.testAdd();
 //		test.delete();
 //		test.testUpdate();
-		test.testfindByLogin();
+//		test.testfindByLogin();
 //		test.testAuthenticate();
+//		test.testSearch();
 
 	}
 
 	public void testAdd() throws Exception {
 		UserDTO dto = new UserDTO();
-		dto.setId(2);
-		dto.setFirstName("Ram");
-		dto.setLastName("Sharma");
-		dto.setLogin("admin");
-		dto.setPassword("pass1234");
+		dto.setId(3);
+		dto.setFirstName("Akbar");
+		dto.setLastName("Mansuri");
+		dto.setLogin("akbar@gmail.com");
+		dto.setPassword("akbar123");
 		long pk = service.add(dto);
 		System.out.println("Data Inserted... pk = " + pk);
 	}
@@ -79,6 +83,26 @@ public class TestUserService {
 			System.out.println("invalid login id or password");
 		}
 
+	}
+
+	public void testSearch() {
+
+		UserDTO dto = new UserDTO();
+
+		dto.setFirstName("Shyam");
+		
+		List<UserDTO> list = service.search(dto, 1, 5);
+
+		Iterator it = list.iterator();
+
+		while (it.hasNext()) {
+			dto = (UserDTO) it.next();
+			System.out.print(dto.getId());
+			System.out.print("\t" + dto.getFirstName());
+			System.out.print("\t" + dto.getLastName());
+			System.out.print("\t" + dto.getLogin());
+			System.out.println("\t" + dto.getPassword());
+		}
 	}
 
 }

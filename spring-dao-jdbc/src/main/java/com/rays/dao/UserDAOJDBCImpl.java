@@ -1,5 +1,7 @@
 package com.rays.dao;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +74,30 @@ public class UserDAOJDBCImpl implements UserDAOInt {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+
+	public List search(UserDTO dto) {
+		String sql = "select * from st_user";
+		List l = jdbcTemplate.query(sql, new UserMapper());
+		return l;
+	}
+
+	public List search(UserDTO dto, int pageNo, int pageSize) {
+		StringBuffer sql = new StringBuffer("select * from st_user where 1=1");
+
+		if (dto != null) {
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				sql.append(" and firstName like '" + dto.getFirstName() + "%'");
+			}
+		}
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+		System.out.println("sql===> " + sql.toString());
+		List l = jdbcTemplate.query(sql.toString(), new UserMapper());
+		return l;
 	}
 
 }

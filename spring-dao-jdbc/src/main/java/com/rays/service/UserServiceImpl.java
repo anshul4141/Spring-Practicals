@@ -1,5 +1,7 @@
 package com.rays.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -42,5 +44,13 @@ public class UserServiceImpl implements UserServiceInt {
 
 	public UserDTO authenticate(String login, String password) {
 		return dao.authenticate(login, password);
+	}
+
+	public List search(UserDTO dto) {
+		return dao.search(dto);
+	}
+
+	public List search(UserDTO dto, int pageNo, int pageSize) {
+		return dao.search(dto, pageNo, pageSize);
 	}
 }
