@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" isELIgnored="false"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Welcome</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<%@ include file="Header.jsp"%>
 	<div align="center">
-		<h1>${message}</h1>
+		<h1>Add User</h1>
 	</div>
 	<%@ include file="Footer.jsp"%>
 </body>
