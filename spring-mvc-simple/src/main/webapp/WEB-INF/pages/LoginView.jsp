@@ -20,10 +20,12 @@
 				<tr>
 					<th align="left">Login ID :</th>
 					<td><sf:input path="login" placeholder="Enter login ID" /></td>
+					<td style="color: red"><sf:errors path="login" /></td>
 				</tr>
 				<tr>
 					<th align="left">Password :</th>
 					<td><sf:password path="password" placeholder="Enter password" /></td>
+					<td style="color: red"><sf:errors path="password" /></td>
 				</tr>
 				<tr>
 					<th></th>

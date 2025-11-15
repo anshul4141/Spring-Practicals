@@ -1,19 +1,26 @@
 package com.rays.form;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class UserForm {
 
 	protected long id = 0;
 
 	private Long[] ids;
 
+	@NotEmpty
 	private String firstName;
 
+	@NotEmpty
 	private String lastName;
 
+	@NotEmpty
 	private String login;
 
+	@NotEmpty
 	private String password;
 
+	@NotEmpty
 	private String address;
 
 	private int pageNo;

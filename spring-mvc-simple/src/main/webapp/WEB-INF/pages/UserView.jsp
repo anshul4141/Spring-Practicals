@@ -26,22 +26,27 @@
 				<tr>
 					<th align="left">First Name :</th>
 					<td><sf:input path="firstName" /></td>
+					<td style="color: red"><sf:errors path="firstName" /></td>
 				</tr>
 				<tr>
 					<th align="left">Last Name :</th>
 					<td><sf:input path="lastName" /></td>
+					<td style="color: red"><sf:errors path="lastName" /></td>
 				</tr>
 				<tr>
 					<th align="left">Login ID :</th>
 					<td><sf:input path="login" /></td>
+					<td style="color: red"><sf:errors path="login" /></td>
 				</tr>
 				<tr>
 					<th align="left">Password :</th>
 					<td><sf:input path="password" /></td>
+					<td style="color: red"><sf:errors path="password" /></td>
 				</tr>
 				<tr>
 					<th align="left">Address :</th>
 					<td><sf:input path="address" /></td>
+					<td style="color: red"><sf:errors path="address" /></td>
 				</tr>
 				<tr>
 					<th></th>
