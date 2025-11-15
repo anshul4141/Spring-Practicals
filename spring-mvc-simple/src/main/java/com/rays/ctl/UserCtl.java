@@ -44,10 +44,10 @@ public class UserCtl {
 	@PostMapping
 	public String submit(@ModelAttribute("form") @Valid UserForm form, BindingResult bindingResult, Model model) {
 
-		if(bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			return "UserView";
 		}
-		
+
 		UserDTO dto = new UserDTO();
 		dto.setId(form.getId());
 		dto.setFirstName(form.getFirstName());
@@ -60,8 +60,14 @@ public class UserCtl {
 			service.update(dto);
 			model.addAttribute("successMsg", "record updated successfully");
 		} else {
-			service.add(dto);
-			model.addAttribute("successMsg", "record added successfully");
+			try {
+				service.add(dto);
+				model.addAttribute("successMsg", "record added successfully");
+			} catch (Exception e) {
+				model.addAttribute("errorMsg", e.getMessage());
+				e.printStackTrace();
+			}
+
 		}
 		return "UserView";
 	}

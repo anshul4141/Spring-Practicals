@@ -43,8 +43,13 @@ public class UserRegistrationCtl {
 		dto.setPassword(form.getPassword());
 		dto.setAddress(form.getAddress());
 
-		service.add(dto);
-		model.addAttribute("successMsg", "user register successfully");
+		try {
+			service.add(dto);
+			model.addAttribute("successMsg", "user register successfully");
+		} catch (Exception e) {
+			model.addAttribute("errorMsg", e.getMessage());
+			e.printStackTrace();
+		}
 
 		return "UserRegistration";
 	}

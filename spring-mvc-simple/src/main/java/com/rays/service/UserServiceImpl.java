@@ -18,7 +18,14 @@ public class UserServiceImpl implements UserServiceInt {
 	public UserDAOInt dao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long add(UserDTO dto) {
+	public long add(UserDTO dto) throws Exception {
+		
+		UserDTO existDto = findByLogin(dto.getLogin());
+		
+		if(existDto != null) {
+			throw new Exception("login id already exist");
+		}
+		
 		long i = dao.add(dto);
 		return i;
 	}
