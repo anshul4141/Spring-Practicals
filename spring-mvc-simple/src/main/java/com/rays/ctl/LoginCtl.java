@@ -41,12 +41,12 @@ public class LoginCtl {
 	public String submit(@ModelAttribute("form") @Valid LoginForm form, BindingResult bindingResult,
 			@RequestParam(required = false) String operation, HttpSession session) {
 
-		if (bindingResult.hasErrors()) {
-			return "LoginView";
-		}
-
 		if (operation.equals("signUp")) {
 			return "redirect:Register";
+		}
+
+		if (bindingResult.hasErrors()) {
+			return "LoginView";
 		}
 
 		UserDTO dto = service.authenticate(form.getLogin(), form.getPassword());

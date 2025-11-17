@@ -19,7 +19,7 @@ import com.rays.form.UserForm;
 import com.rays.service.UserServiceInt;
 
 @Controller
-@RequestMapping(value = "User")
+@RequestMapping(value = "/ctl/User")
 public class UserCtl {
 
 	@Autowired

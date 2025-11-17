@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserServiceInt {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long save(UserDTO dto) {
+	public long save(UserDTO dto) throws Exception {
 		long id = dto.getId();
 		if (dto.getId() != null && dto.getId() > 0) {
 			update(dto);
