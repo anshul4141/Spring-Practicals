@@ -21,6 +21,11 @@
 			<table>
 				<tr>
 					<td><sf:input path="firstName" />&nbsp; &nbsp;</td>
+					<td><sf:select path="id">
+							<sf:option value="0">-----------select------------</sf:option>
+							<sf:options items="${userList}" itemValue="id"
+								itemLabel="login" />
+						</sf:select>&nbsp; &nbsp;</td>
 					<td><input type="submit" name="operation" value="search">
 					</td>
 				</tr>
