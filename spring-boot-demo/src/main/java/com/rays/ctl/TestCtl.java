@@ -116,8 +116,8 @@ public class TestCtl {
 
 		ORSResponse res = new ORSResponse();
 
-		//res.setSuccess(false);
-		res.addMessage("invalid loginid or password");
+		res.addMessage("data added successfully");
+		res.setSuccess(true);
 
 		return res;
 	}
