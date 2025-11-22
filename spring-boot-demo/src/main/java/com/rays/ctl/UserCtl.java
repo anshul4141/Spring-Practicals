@@ -43,23 +43,13 @@ public class UserCtl extends BaseCtl {
 			userService.update(dto);
 			res.addData(dto.getId());
 			res.addMessage("Data Updated Successfully..!!");
+			res.setSuccess(true);
 		} else {
 			long pk = userService.add(dto);
 			res.addData(pk);
 			res.addMessage("Data added Successfully..!!");
+			res.setSuccess(true);
 		}
-		return res;
-	}
-
-	@GetMapping("get/{id}")
-	public ORSResponse get(@PathVariable long id) {
-
-		ORSResponse res = new ORSResponse();
-
-		UserDTO dto = userService.findById(id);
-
-		res.addData(dto);
-
 		return res;
 	}
 
@@ -73,6 +63,23 @@ public class UserCtl extends BaseCtl {
 		}
 
 		res.addMessage("data deleted successfully");
+		res.setSuccess(true);
+
+		return res;
+	}
+
+	@GetMapping("get/{id}")
+	public ORSResponse get(@PathVariable long id) {
+
+		ORSResponse res = new ORSResponse();
+
+		UserDTO dto = userService.findById(id);
+
+		if (dto != null) {
+			res.setSuccess(true);
+		}
+
+		res.addData(dto);
 
 		return res;
 	}
