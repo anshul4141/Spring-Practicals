@@ -1,38 +1,35 @@
 package com.rays.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rays.dao.UserDAO;
-import com.rays.dto.RoleDTO;
-import com.rays.dto.UserDTO;
+import com.rays.dao.AttachmentDAO;
+import com.rays.dto.AttachmentDTO;
 
 @Service
 @Transactional
-public class UserService {
+public class AttachmentService {
 
 	@Autowired
-	public UserDAO dao;
+	public AttachmentDAO dao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long add(UserDTO dto) {
+	public long add(AttachmentDTO dto) {
 		long pk = dao.add(dto);
 		return pk;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void update(UserDTO dto) {
+	public void update(AttachmentDTO dto) {
 		dao.update(dto);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(long id) {
 		try {
-			UserDTO dto = findById(id);
+			AttachmentDTO dto = findById(id);
 			dao.delete(dto);
 		} catch (RuntimeException e) {
 			System.out.println(e.getMessage());
@@ -40,13 +37,13 @@ public class UserService {
 	}
 
 	@Transactional(readOnly = true)
-	public UserDTO findById(long pk) {
-		UserDTO dto = dao.findByPk(pk);
+	public AttachmentDTO findById(long pk) {
+		AttachmentDTO dto = dao.findByPk(pk);
 		return dto;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
-	public long save(UserDTO dto) {
+	public long save(AttachmentDTO dto) {
 		Long id = dto.getId();
 		if (id != null && id > 0) {
 			update(dto);
@@ -56,9 +53,4 @@ public class UserService {
 		return id;
 	}
 
-	@Transactional(readOnly = true)
-	public List search(UserDTO dto, int pageNo, int pageSize) {
-		List list = dao.search(dto, pageNo, pageSize);
-		return list;
-	}
 }

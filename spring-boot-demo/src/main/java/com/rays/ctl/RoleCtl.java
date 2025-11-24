@@ -102,7 +102,9 @@ public class RoleCtl extends BaseCtl {
 
 		RoleDTO dto = (RoleDTO) form.getDto();
 
-		List list = roleService.search(dto, pageNo, 1);
+		int pageSize = 5;
+
+		List list = roleService.search(dto, pageNo, pageSize);
 
 		if (list != null && list.size() > 0) {
 			res.setSuccess(true);
