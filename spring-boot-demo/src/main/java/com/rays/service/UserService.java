@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rays.dao.UserDAO;
-import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
 
 @Service
@@ -17,6 +16,18 @@ public class UserService {
 
 	@Autowired
 	public UserDAO dao;
+
+	public UserDTO authenticate(String loginId, String password) {
+
+		UserDTO dto = dao.findByUniqueKey("loginId", loginId);
+
+		if (dto != null) {
+			if (dto.getPassword().equals(password)) {
+				return dto;
+			}
+		}
+		return null;
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) {
