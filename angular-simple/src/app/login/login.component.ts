@@ -23,7 +23,7 @@ export class LoginComponent {
       this.router.navigateByUrl('welcome')
     } else {
       this.form.inputError = 'login or password is invalid'
-      this.router.navigateByUrl('login');
+      // this.router.navigateByUrl('login');
     }
 
   }

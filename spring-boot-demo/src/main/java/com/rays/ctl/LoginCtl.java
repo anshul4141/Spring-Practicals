@@ -68,7 +68,7 @@ public class LoginCtl extends BaseCtl {
 		long pk = service.add(dto);
 
 		res.addData(pk);
-		res.addMessage("Data Registered Successfully..!!");
+		res.addMessage("user Registered Successfully..!!");
 		return res;
 	}
 
