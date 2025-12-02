@@ -2,6 +2,8 @@
 
     <h2>User Registration</h2>
 
+    <h2>{{form.message}}</h2>
+
     <form (submit)="signUp()">
         <table>
             <tr>
@@ -9,28 +11,54 @@
                 <td><input type="text" [(ngModel)]="form.data.firstName" name="firstName"
                         placeholder="enter first name">
                 </td>
+                <td *ngIf="form.inputerror.firstName != null">
+                    <font color="red">
+                        {{form.inputerror.firstName}}
+                    </font>
+                </td>
             </tr>
 
             <tr>
                 <th>Last Name</th>
                 <td><input type="text" [(ngModel)]="form.data.lastName" name="lastName" placeholder="enter last name">
                 </td>
+                <td *ngIf="form.inputerror.lastName != null">
+                    <font color="red">
+                        {{form.inputerror.lastName}}
+                    </font>
+                </td>
             </tr>
 
             <tr>
                 <th>LoginId</th>
-                <td><input type="text" [(ngModel)]="form.data.loginId" name="loginId" placeholder="enter your email"></td>
+                <td><input type="text" [(ngModel)]="form.data.loginId" name="loginId" placeholder="enter your email">
+                </td>
+                <td *ngIf="form.inputerror.loginId != null">
+                    <font color="red">
+                        {{form.inputerror.loginId}}
+                    </font>
+                </td>
             </tr>
 
             <tr>
                 <th>Password</th>
                 <td><input type="text" [(ngModel)]="form.data.password" name="password" placeholder="enter first name">
                 </td>
+                <td *ngIf="form.inputerror.password != null">
+                    <font color="red">
+                        {{form.inputerror.password}}
+                    </font>
+                </td>
             </tr>
 
             <tr>
                 <th>DOB</th>
                 <td><input type="date" [(ngModel)]="form.data.dob" name="dob"></td>
+                <td *ngIf="form.inputerror.dob != null">
+                    <font color="red">
+                        {{form.inputerror.dob}}
+                    </font>
+                </td>
             </tr>
 
             <tr>

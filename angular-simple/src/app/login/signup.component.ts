@@ -7,25 +7,39 @@ import { HttpServiceService } from '../http-service.service';
 })
 export class SignupComponent {
 
-  constructor(private httpService: HttpServiceService ) { }
+  constructor(private httpService: HttpServiceService) { }
 
   endpoint: string = 'http://localhost:8080/Auth/signUp'
 
   form: any = {
     data: {},
-    message: ''
+    message: '',
+    inputerror: {}
   }
 
   signUp() {
-    console.log('in signUp() function')
-    console.log('firstName==> ', this.form.data.firstName)
-    console.log('lastName===>', this.form.data.lastName)
-    console.log('login===>', this.form.data.loginId)
-    console.log('password===>', this.form.data.password)
-    console.log('dob===>', this.form.data.dob)
+    var self = this
+    // console.log('in signUp() function')
+    // console.log('firstName==> ', this.form.data.firstName)
+    // console.log('lastName===>', this.form.data.lastName)
+    // console.log('login===>', this.form.data.loginId)
+    // console.log('password===>', this.form.data.password)
+    // console.log('dob===>', this.form.data.dob)
 
     this.httpService.post(this.endpoint, this.form.data, function (res: any) {
-      console.log('response from signUp api===>', res)
+      console.log('message===>', res.result.message)
+      console.log('inputerror===>', res.result.inputerror)
+      console.log('Id===>', res.result.data)
+      console.log('status===>', res.success)
+
+      if (res.result.message) {
+        self.form.message = res.result.message;
+      }
+
+      if (res.result.inputerror) {
+        self.form.inputerror = res.result.inputerror;
+      }
+
     })
 
 
