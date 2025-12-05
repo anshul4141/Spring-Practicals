@@ -4,6 +4,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './login/signup.component';
 import { UserListComponent } from './user/user-list.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
 
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'userList',
     component: UserListComponent
+  },
+
+  {
+    path: 'user',
+    component: UserComponent
   }
 
 ];
