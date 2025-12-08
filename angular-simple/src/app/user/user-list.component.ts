@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
     pageNo: 0,
     deleteParams: [],
     message: '',
+    errormessage: '',
     preload: []
   }
 
@@ -50,6 +51,11 @@ export class UserListComponent implements OnInit {
     this.form.deleteParams = userId;
   }
 
+   edit(page: any) {
+    console.log("page ==> ", page);
+    this.router.navigateByUrl(page);
+  }
+
   search() {
     var self = this
     this.httpService.post('http://localhost:8080/User/search/' + this.form.pageNo, this.form.searchParams, function (res: any) {
@@ -61,13 +67,13 @@ export class UserListComponent implements OnInit {
   delete() {
     var self = this
     this.httpService.get('http://localhost:8080/User/delete/' + this.form.deleteParams, function (res: any) {
-
-      if (res.success) {
+      if (res.success && res.result.message) {
         self.form.message = res.result.message;
       }
-
+      if (!res.success && res.result.message) {
+        self.form.errormessage = res.result.message;
+      }
       self.search()
-
     })
   }
 

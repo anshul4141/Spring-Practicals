@@ -13,7 +13,8 @@ export class LoginComponent {
 
   form: any = {
     data: {},
-    inputerror: {}
+    inputerror: {},
+    message:''
   }
 
   constructor(public router: Router, public httpService: HttpServiceService) {
