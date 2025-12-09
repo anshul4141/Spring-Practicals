@@ -1,17 +1,21 @@
 <div align="center" style="margin-top: 100px;" class="container">
 
     <h2>Login</h2>
-    <span>{{form.message}}</span>
+    <span style="color: red;">{{form.message}}</span>
     <form (submit)="signIn()">
         <table>
             <tr>
                 <th>LoginId</th>
-                <td><input type="text" [(ngModel)]="form.data.loginId" name="loginId" placeholder="enter your email"></td>
-                <td *ngIf="form.inputerror.loginId"><font color="red">{{form.inputerror.loginId}}</font></td>
+                <td><input type="text" [(ngModel)]="form.data.loginId" name="loginId" placeholder="enter your email">
+                </td>
+                <td *ngIf="form.inputerror.loginId">
+                    <font color="red">{{form.inputerror.loginId}}</font>
+                </td>
             </tr>
             <tr>
                 <th>Password</th>
-                <td><input type="text" [(ngModel)]="form.data.password" name="password" placeholder="enter first password">
+                <td><input type="text" [(ngModel)]="form.data.password" name="password"
+                        placeholder="enter first password">
                 </td>
             </tr>
             <tr>

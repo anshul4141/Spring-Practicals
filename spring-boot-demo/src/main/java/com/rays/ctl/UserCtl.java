@@ -44,28 +44,20 @@ public class UserCtl extends BaseCtl {
 
 	@GetMapping("preload")
 	public ORSResponse preload() {
-
 		ORSResponse res = new ORSResponse();
-
 		List<DropDownList> roleList = roleService.search(null, 0, 0);
-
 		res.addResult("roleList", roleList);
-
 		return res;
 
 	}
 
 	@PostMapping("save")
 	public ORSResponse save(@RequestBody @Valid UserForm form, BindingResult bindingResult) {
-
 		ORSResponse res = validate(bindingResult);
-
 		if (!res.isSuccess()) {
 			return res;
 		}
-
 		UserDTO dto = (UserDTO) form.getDto();
-
 		if (dto.getId() != null && dto.getId() > 0) {
 			userService.update(dto);
 			res.addData(dto.getId());
@@ -82,104 +74,69 @@ public class UserCtl extends BaseCtl {
 
 	@GetMapping("delete/{ids}")
 	public ORSResponse delete(@PathVariable long[] ids) {
-
 		ORSResponse res = new ORSResponse();
 
 		for (long id : ids) {
 			userService.delete(id);
+			res.addMessage("data deleted successfully");
+			res.setSuccess(true);
 		}
-
-		res.addMessage("data deleted successfully");
-		res.setSuccess(true);
-
 		return res;
 	}
 
 	@GetMapping("get/{id}")
 	public ORSResponse get(@PathVariable long id) {
-
 		ORSResponse res = new ORSResponse();
-
 		UserDTO dto = userService.findById(id);
-
 		if (dto != null) {
 			res.setSuccess(true);
 		}
-
 		res.addData(dto);
-
 		return res;
 	}
 
 	@PostMapping("search/{pageNo}")
 	public ORSResponse search(@RequestBody UserForm form, @PathVariable int pageNo) {
-
 		ORSResponse res = new ORSResponse();
-
 		UserDTO dto = (UserDTO) form.getDto();
-
 		int pageSize = 5;
-
 		List list = userService.search(dto, pageNo, pageSize);
-
 		if (list != null && list.size() > 0) {
 			res.setSuccess(true);
 		}
-
 		res.addData(list);
-
 		return res;
-
 	}
 
 	@PostMapping("/profilePic/{userId}")
 	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file,
 			HttpServletRequest req) {
-
 		AttachmentDTO attachmentDto = new AttachmentDTO(file);
-
 		attachmentDto.setDescription("profile pic");
-
 		attachmentDto.setUserId(userId);
-
 		UserDTO userDto = userService.findById(userId);
-
 		if (userDto.getImageId() != null && userDto.getImageId() > 0) {
-
 			attachmentDto.setId(userDto.getImageId());
-
 		}
-
 		Long imageId = attachmentService.save(attachmentDto);
-
 		if (userDto.getImageId() == null) {
-
 			userDto.setImageId(imageId);
-
 			userService.update(userDto);
 		}
-
 		ORSResponse res = new ORSResponse();
-
 		res.addResult("imageId", imageId);
 		res.setSuccess(true);
-
 		return res;
 	}
 
 	@GetMapping("/profilePic/{userId}")
 	public @ResponseBody void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
-
 		try {
-
 			UserDTO userDto = userService.findById(userId);
-
 			AttachmentDTO attachmentDTO = null;
-
 			if (userDto != null) {
 				attachmentDTO = attachmentService.findById(userDto.getImageId());
 			}
-
 			if (attachmentDTO != null) {
 				response.setContentType(attachmentDTO.getType());
 				OutputStream out = response.getOutputStream();

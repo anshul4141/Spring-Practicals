@@ -1,6 +1,7 @@
-<div align="center" style="margin-top: 100px;" class="container">
+<div align="center" style="margin-top: 80px;" class="container">
 
-    <h2>Add User</h2>
+    <h2 *ngIf="form.data.id > 0" style="color: navy; padding-bottom: 10px;">Update User</h2>
+    <h2 *ngIf="form.data.id == null" style="color: navy; padding-bottom: 10px;">Add User</h2>
 
     <h2>{{form.message}}</h2>
 
@@ -8,7 +9,7 @@
         <table>
             <tr>
                 <th>First Name</th>
-                <td><input style="width: 80%;" type="text" [(ngModel)]="form.data.firstName" name="firstName"
+                <td><input style="width: 70%;" type="text" [(ngModel)]="form.data.firstName" name="firstName"
                         placeholder="enter first name">
                 </td>
                 <td *ngIf="form.inputerror.firstName != null">
@@ -20,7 +21,7 @@
 
             <tr>
                 <th>Last Name</th>
-                <td><input style="width: 80%;" type="text" [(ngModel)]="form.data.lastName" name="lastName"
+                <td><input style="width: 70%;" type="text" [(ngModel)]="form.data.lastName" name="lastName"
                         placeholder="enter last name">
                 </td>
                 <td *ngIf="form.inputerror.lastName != null">
@@ -31,7 +32,7 @@
             </tr>
             <tr>
                 <th>Role</th>
-                <td><select name="id" [(ngModel)]="form.data.roleId" style="width: 80%;">
+                <td><select name="id" [(ngModel)]="form.data.roleId" style="width: 70%;">
                         <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
                         <option *ngFor="let obj of form.preload" [value]="obj.key">{{obj.value}}</option>
                     </select>
@@ -39,7 +40,7 @@
             </tr>
             <tr>
                 <th>LoginId</th>
-                <td><input style="width: 80%;" type="text" [(ngModel)]="form.data.loginId" name="loginId"
+                <td><input style="width: 70%;" type="text" [(ngModel)]="form.data.loginId" name="loginId"
                         placeholder="enter your email">
                 </td>
                 <td *ngIf="form.inputerror.loginId != null">
@@ -51,7 +52,7 @@
 
             <tr>
                 <th>Password</th>
-                <td><input style="width: 80%;" type="text" [(ngModel)]="form.data.password" name="password"
+                <td><input style="width: 70%;" type="text" [(ngModel)]="form.data.password" name="password"
                         placeholder="enter first name">
                 </td>
                 <td *ngIf="form.inputerror.password != null">
@@ -63,7 +64,7 @@
 
             <tr>
                 <th>DOB</th>
-                <td><input style="width: 80%;" type="date" [(ngModel)]="form.data.dob" name="dob"></td>
+                <td><input style="width: 70%;" type="date" [(ngModel)]="form.data.dob" name="dob"></td>
                 <td *ngIf="form.inputerror.dob != null">
                     <font color="red">
                         {{form.inputerror.dob}}
@@ -71,10 +72,17 @@
                 </td>
             </tr>
 
+            <tr *ngIf="form.data.id > 0">
+                <th>Prfile :</th>
+                <td>
+                    <img src="http://localhost:8080/User/profilePic/{{form.data.id}}" height="90px" width="90px">
+                </td>
+            </tr>
+
             <tr>
-                <th>Image :</th>
-                <td><input type="file" name="imageId" (change)="onFileSelect($event)"
-                        accept="image/*">
+                <th *ngIf="form.data.id > 0">Update Image :</th>
+                <th *ngIf="form.data.id == null">Upload Image :</th>
+                <td><input type="file" name="imageId" (change)="onFileSelect($event)" accept="image/*">
                 </td>
             </tr>
 

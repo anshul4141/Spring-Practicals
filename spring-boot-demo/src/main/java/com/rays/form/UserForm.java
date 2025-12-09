@@ -28,6 +28,8 @@ public class UserForm extends BaseForm {
 
 	private long roleId;
 
+	private Long imageId;
+
 	public UserForm() {
 	}
 
@@ -79,6 +81,14 @@ public class UserForm extends BaseForm {
 		this.roleId = roleId;
 	}
 
+	public Long getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
+	}
+
 	@Override
 	public BaseDTO getDto() {
 		UserDTO dto = (UserDTO) initDTO(new UserDTO());
@@ -88,6 +98,11 @@ public class UserForm extends BaseForm {
 		dto.setPassword(password);
 		dto.setDob(dob);
 		dto.setRoleId(roleId);
+		if (imageId != null && imageId > 0) {
+			dto.setImageId(imageId);
+		} else {
+			dto.setImageId(null);
+		}
 		return dto;
 	}
 
