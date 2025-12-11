@@ -67,71 +67,91 @@ public class UserDAO {
 		return dto;
 	}
 
-	public List search(UserDTO dto, int pageNo, int pageSize) {
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
 
+		// CriteriaBuilder SQL query programmatically banane ke kaam aata hai(sql query banane ke liye)
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
+		// UserDTO type ki query banate hain (result UserDTO hoga)(CriteriaQueiry DTO Type ki query banane ke liye)
 		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
 
+		// Query kis table/entity par chalegi - yaha UserDTO table
 		Root<UserDTO> qRoot = cq.from(UserDTO.class);
 
-		List<Predicate> predicateList = new ArrayList<Predicate>();
+		// Dynamic WHERE conditions store karne ke liye empty list
+		List<Predicate> predicateList = new ArrayList<>();
 
+		// Agar dto null nahi hai toh hi filters check karenge
 		if (dto != null) {
 
+			// Agar firstName diya hai toh LIKE search add kar denge
 			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
 				predicateList.add(builder.like(qRoot.get("firstName"), dto.getFirstName() + "%"));
 			}
 
+			// Agar roleId diya hai aur > 0 hai toh equal condition add hogi
 			if (dto.getRoleId() != null && dto.getRoleId() > 0) {
 				predicateList.add(builder.equal(qRoot.get("roleId"), dto.getRoleId()));
 			}
 
+			// Agar dob (date of birth) diya hai toh usse match karenge
 			if (dto.getDob() != null && dto.getDob().getTime() > 0) {
 				predicateList.add(builder.equal(qRoot.get("dob"), dto.getDob()));
 			}
 		}
 
+		// Sare dynamic predicates ko WHERE clause me set karna
 		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
-		System.out.println("cq ==== >>>> : " + cq.toString());
-
+		// Criteria query ko executable query me convert karna
 		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
 
+		// Pagination logic: starting row + max records
 		if (pageSize > 0) {
-			tq.setFirstResult(pageNo * pageSize);
-			tq.setMaxResults(pageSize);
+			tq.setFirstResult(pageNo * pageSize); // index
+			tq.setMaxResults(pageSize); // total no of records
 		}
 
+		// Query execute karna aur result list lana
 		List<UserDTO> list = tq.getResultList();
 
+		// Final result return karna
 		return list;
 	}
 
 	public UserDTO findByUniqueKey(String attribute, String value) {
 
+		// CriteriaBuilder se programmatically SQL query banate hain
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
+		// Query banayi jati hai jiska result UserDTO type ka hoga
 		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
 
+		// Query kis table/entity par chalegi - yaha UserDTO par
 		Root<UserDTO> qRoot = cq.from(UserDTO.class);
 
+		// WHERE condition banate hain -> attribute = value
+		// Example: loginId = "abc@gmail.com"
 		Predicate condition = builder.equal(qRoot.get(attribute), value);
 
+		// Condition ko query ke WHERE clause me lagate hain
 		cq.where(condition);
 
+		// Query ko executable query me convert karte hain
 		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
 
+		// Query run karke result list le aate hain
 		List<UserDTO> list = tq.getResultList();
 
+		// Result ko store karne ke liye object banate hain
 		UserDTO dto = null;
 
+		// Agar list me data hai toh first record return karenge
 		if (list.size() > 0) {
-
-			dto = list.get(0);
-
+			dto = list.get(0); // unique field hai toh pehla hi enough hai
 		}
 
+		// Final result return karte hain
 		return dto;
 	}
 
