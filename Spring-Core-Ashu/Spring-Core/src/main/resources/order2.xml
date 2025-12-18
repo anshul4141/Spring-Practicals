@@ -10,9 +10,6 @@
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-	<context:component-scan
-		base-package="com.rays.ioc" />
-
 	<bean name="payment" class="com.rays.ioc.Payment">
 		<property name="balance" value="100"></property>
 	</bean>
