@@ -2,9 +2,9 @@ package com.rays.autowire.bytype;
 
 public class UserService {
 
-	private UserDAOImpl userDao;
+	private UserDAOInt userDao;
 
-	public void setuserdao(UserDAOImpl userDao) {
+	public void setuserdao(UserDAOInt userDao) {
 		this.userDao = userDao;
 	}
 
