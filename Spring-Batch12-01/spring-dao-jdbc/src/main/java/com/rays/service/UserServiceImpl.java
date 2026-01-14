@@ -32,8 +32,25 @@ public class UserServiceImpl implements UserServiceInt {
 		dao.update(dto);
 	}
 
-	public List search() {
+	public List<UserDTO> search() {
 		return dao.search();
+	}
+
+	public UserDTO authenticate(String login, String password) {
+		return dao.authenticate(login, password);
+	}
+
+	public UserDTO findByLogin(String login) {
+		UserDTO dto = dao.findByLogin(login);
+		return dto;
+	}
+
+	public UserDTO findByPk(int id) {
+		return dao.findByPk(id);
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+		return dao.search(dto, pageNo, pageSize);
 	}
 
 }

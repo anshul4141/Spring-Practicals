@@ -27,6 +27,9 @@ public class TestUserService {
 //		test.testDelete();
 //		test.testUpdate();
 		test.testSearch();
+//		test.testAuthenticate();
+//		test.testFindByLogin();
+//		test.testFindByPk();
 
 	}
 
@@ -56,17 +59,51 @@ public class TestUserService {
 	}
 
 	private void testSearch() {
-		List list = service.search();
+		UserDTO dto = new UserDTO();
+
+		int pageNo = 1;
+		int pageSize = 5;
+
+		dto.setFirstName("ram");
+
+		List<UserDTO> list = service.search(dto, pageNo, pageSize);
 
 		Iterator<UserDTO> it = list.iterator();
 		while (it.hasNext()) {
-			UserDTO dto = it.next();
+			dto = it.next();
 			System.out.println(dto.getId());
 			System.out.println(dto.getFirstName());
 			System.out.println(dto.getLastName());
 			System.out.println(dto.getLogin());
 			System.out.println(dto.getPassword());
 		}
+	}
+
+	private void testFindByPk() {
+		UserDTO dto = service.findByPk(1);
+		System.out.println(dto.getId());
+		System.out.println(dto.getFirstName());
+		System.out.println(dto.getLastName());
+		System.out.println(dto.getLogin());
+		System.out.println(dto.getPassword());
+	}
+
+	private void testFindByLogin() {
+		UserDTO dto = service.findByLogin("ram@gmail.com");
+		System.out.println(dto.getId());
+		System.out.println(dto.getFirstName());
+		System.out.println(dto.getLastName());
+		System.out.println(dto.getLogin());
+		System.out.println(dto.getPassword());
+	}
+
+	private void testAuthenticate() {
+		UserDTO dto = service.authenticate("admin", "admin");
+		System.out.println(dto.getId());
+		System.out.println(dto.getFirstName());
+		System.out.println(dto.getLastName());
+		System.out.println(dto.getLogin());
+		System.out.println(dto.getPassword());
 	}
 
 }

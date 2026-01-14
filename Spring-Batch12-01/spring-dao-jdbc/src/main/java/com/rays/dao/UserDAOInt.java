@@ -6,12 +6,22 @@ import com.rays.dto.UserDTO;
 
 public interface UserDAOInt {
 
+	public long nextPk();
+
 	public long add(UserDTO dto);
 
 	public void delete(int id);
 
 	public void update(UserDTO dto);
 
-	public List search();
+	public UserDTO authenticate(String login, String password);
+
+	public UserDTO findByLogin(String login);
+
+	public UserDTO findByPk(int id);
+
+	public List<UserDTO> search();
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize);
 
 }
