@@ -1,5 +1,7 @@
 package com.rays.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,5 +35,15 @@ public class UserServiceImpl implements UserServiceInt {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(long pk) {
 		dao.delete(pk);
+	}
+
+	@Transactional(readOnly = true)
+	public UserDTO findByLogin(String login) {
+		return dao.findByLogin(login);
+	}
+
+	@Transactional(readOnly = true)
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+		return dao.search(dto, pageNo, pageSize);
 	}
 }

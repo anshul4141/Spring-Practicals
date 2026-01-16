@@ -1,5 +1,8 @@
 package com.rays.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -22,8 +25,43 @@ public class TestUserService {
 
 //		test.testAdd();
 //		test.testUpdate();
-		test.testFindByPk();
+//		test.testFindByPk();
 //		test.testDelete();
+//		test.testFindByLogin();
+		test.testSearch();
+
+	}
+
+	private void testSearch() {
+		UserDTO dto = new UserDTO();
+		dto.setFirstName("a");
+		int pageNo = 1;
+		int pageSize = 5;
+		List<UserDTO> list = service.search(dto, pageNo, pageSize);
+
+		Iterator<UserDTO> it = list.iterator();
+		while (it.hasNext()) {
+			dto = it.next();
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getPassword());
+		}
+	}
+
+	private void testFindByLogin() {
+		UserDTO dto = new UserDTO();
+		dto = service.findByLogin("shyam@gmail.com");
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("user not found");
+		}
 
 	}
 

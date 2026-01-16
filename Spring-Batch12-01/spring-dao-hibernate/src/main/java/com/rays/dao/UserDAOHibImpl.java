@@ -1,7 +1,11 @@
 package com.rays.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -34,5 +38,53 @@ public class UserDAOHibImpl implements UserDAOInt {
 		Session session = sessionFactory.getCurrentSession();
 		UserDTO dto = session.get(UserDTO.class, pk);
 		return dto;
+	}
+
+	public UserDTO findByLogin(String login) {
+		Session session = sessionFactory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(UserDTO.class);
+
+		criteria.add(Restrictions.eq("login", login));
+
+		List list = criteria.list();
+
+		UserDTO dto = null;
+
+		if (list.size() == 1) {
+			dto = (UserDTO) list.get(0);
+		}
+
+		return dto;
+
+	}
+
+	public UserDTO authenticate(String login, String password) {
+		return null;
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+
+		List<UserDTO> list = null;
+
+		Session session = sessionFactory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(UserDTO.class);
+
+		if (dto != null) {
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				criteria.add(Restrictions.like("firstName", dto.getFirstName() + "%"));
+			}
+		}
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			criteria.setFirstResult(pageNo);
+			criteria.setMaxResults(pageSize);
+		}
+
+		list = criteria.list();
+
+		return list;
 	}
 }
