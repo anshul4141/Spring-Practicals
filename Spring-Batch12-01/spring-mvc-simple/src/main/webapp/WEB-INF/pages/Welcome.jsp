@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@ include file="Header.jsp"%>
 	<br>
 	<br>
 	<br>

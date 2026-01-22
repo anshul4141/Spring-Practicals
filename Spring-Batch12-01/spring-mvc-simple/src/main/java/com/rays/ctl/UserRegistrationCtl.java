@@ -36,8 +36,12 @@ public class UserRegistrationCtl {
 		dto.setDob(DataUtility.stringToDate(form.getDob()));
 		dto.setAddress(form.getAddress());
 
-		service.add(dto);
-		model.addAttribute("msg", "user registration successfully");
+		try {
+			service.add(dto);
+			model.addAttribute("msg", "user registration successfully");
+		} catch (Exception e) {
+			model.addAttribute("emsg", e.getMessage());
+		}
 
 		return "UserRegistration";
 	}
