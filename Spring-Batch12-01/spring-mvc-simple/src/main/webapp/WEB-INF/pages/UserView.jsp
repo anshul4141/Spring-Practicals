@@ -17,6 +17,7 @@
 				<tr>
 					<th align="left">First Name :</th>
 					<td><sf:input path="firstName" /></td>
+					<td><sf:errors path="firstName"></sf:errors></td>
 				</tr>
 				<tr>
 					<th align="left">Last Name :</th>
