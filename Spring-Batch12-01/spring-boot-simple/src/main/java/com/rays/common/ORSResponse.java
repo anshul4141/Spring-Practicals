@@ -14,7 +14,6 @@ public class ORSResponse {
 	public boolean success = false;
 
 	public ORSResponse() {
-
 	}
 
 	public ORSResponse(boolean success) {

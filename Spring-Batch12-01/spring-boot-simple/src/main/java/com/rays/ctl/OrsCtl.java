@@ -116,8 +116,8 @@ public class OrsCtl {
 
 		ORSResponse res = new ORSResponse();
 
-		res.addMessage("data added successfully");
-		res.setSuccess(true);
+		res.addMessage("invalid login or password");
+		res.setSuccess(false);
 
 		return res;
 	}
@@ -128,7 +128,7 @@ public class OrsCtl {
 		ORSResponse res = new ORSResponse();
 
 		// res.setSuccess(false);
-		res.addResult("preload", "preloaded data");
+		res.addResult("state", "MP, UP");
 
 		return res;
 	}
