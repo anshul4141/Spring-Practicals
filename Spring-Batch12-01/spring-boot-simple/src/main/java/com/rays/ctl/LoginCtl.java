@@ -17,13 +17,13 @@ import com.rays.form.LoginForm;
 import com.rays.service.UserService;
 
 @RestController
-@RequestMapping(value = "Login")
+@RequestMapping(value = "Auth")
 public class LoginCtl extends BaseCtl {
 
 	@Autowired
 	UserService service;
 
-	@PostMapping("auth")
+	@PostMapping("login")
 	public ORSResponse login(@RequestBody @Valid LoginForm form, BindingResult bindingResult, HttpSession session) {
 
 		ORSResponse res = new ORSResponse();
@@ -45,6 +45,17 @@ public class LoginCtl extends BaseCtl {
 			res.setSuccess(false);
 			res.addMessage("Invalid login or password");
 		}
+
+		return res;
+
+	}
+
+	@PostMapping("logout")
+	public ORSResponse logout(HttpSession session) {
+
+		ORSResponse res = new ORSResponse();
+		session.invalidate();
+		res.addMessage("user logout successfully...!");
 
 		return res;
 

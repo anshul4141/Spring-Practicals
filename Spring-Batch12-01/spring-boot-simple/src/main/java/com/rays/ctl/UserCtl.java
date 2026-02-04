@@ -113,7 +113,7 @@ public class UserCtl extends BaseCtl {
 	}
 
 	@GetMapping("search/{pageNo}")
-	public ORSResponse search(@RequestBody RoleForm form, @PathVariable int pageNo) {
+	public ORSResponse search(@RequestBody UserForm form, @PathVariable int pageNo) {
 
 		ORSResponse res = new ORSResponse();
 
