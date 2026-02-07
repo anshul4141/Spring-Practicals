@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rays.dto.AttachmentDTO;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
 
@@ -25,6 +26,9 @@ public class UserDAO {
 
 	@Autowired
 	public RoleDAO roleDao;
+
+	@Autowired
+	AttachmentDAO attachmentDAO;
 
 	public void populate(UserDTO dto) {
 		RoleDTO roleDto = roleDao.findByPk(dto.getRoleId());
@@ -43,6 +47,10 @@ public class UserDAO {
 	}
 
 	public void delete(UserDTO dto) {
+		if (dto.getImageId() != null && dto.getImageId() > 0) {
+			AttachmentDTO adto = attachmentDAO.findByPk(dto.getImageId());
+			attachmentDAO.delete(adto);
+		}
 		entityManager.remove(dto);
 	}
 
