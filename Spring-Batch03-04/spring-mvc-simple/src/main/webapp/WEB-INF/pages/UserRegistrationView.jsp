@@ -17,11 +17,13 @@
 					<th align="left">First Name :</th>
 					<td><sf:input path="firstName"
 							placeholder="enter your firstName" /></td>
+					<td style="color: red"><sf:errors path="firstName" /></td>
 				</tr>
 				<tr>
 					<th align="left">Last Name :</th>
 					<td><sf:input path="lastName"
 							placeholder="enter your lastName" /></td>
+							<td style="color: red"><sf:errors path="lastName" /></td>
 				</tr>
 				<tr>
 					<th align="left">Login ID :</th>
