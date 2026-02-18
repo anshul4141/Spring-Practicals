@@ -3,7 +3,7 @@
     <h1>User Registration</h1>
 
     <form (submit)="signUp()">
-
+        <h2>{{form.message}}</h2>
         <table>
             <tr>
                 <th>First Name</th>
@@ -17,7 +17,8 @@
             </tr>
             <tr>
                 <th>Login</th>
-                <td><input type="text" name="login" [(ngModel)]="form.data.login" placeholder="enter your login"></td>
+                <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="enter your login">
+                </td>
             </tr>
             <tr>
                 <th>Password</th>
