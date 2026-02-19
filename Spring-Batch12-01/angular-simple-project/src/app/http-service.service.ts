@@ -9,14 +9,16 @@ export class HttpServiceService {
 
   post(endpoint: any, bean: any, callback: any) {
 
-    this.httpClint.post(endpoint, bean).subscribe((response) =>{
+    this.httpClint.post(endpoint, bean).subscribe((response) => {
       callback(response);
     })
 
   }
 
   get(endpoint: any, callback: any) {
-
+    this.httpClint.get(endpoint).subscribe((response) => {
+      callback(response);
+    })
   }
 
 }
