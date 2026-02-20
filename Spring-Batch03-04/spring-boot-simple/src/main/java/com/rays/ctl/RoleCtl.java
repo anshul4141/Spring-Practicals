@@ -40,8 +40,7 @@ public class RoleCtl extends BaseCtl {
 
 		RoleDTO dto = new RoleDTO();
 
-		dto.setName(form.getName());
-		dto.setDescription(form.getDescription());
+		dto = (RoleDTO) form.getDto();
 
 		long id = roleService.add(dto);
 
@@ -120,7 +119,11 @@ public class RoleCtl extends BaseCtl {
 
 		int pageSize = 5;
 
-		List<RoleDTO> list = roleService.search(null, pageNo, pageSize);
+		RoleDTO dto = new RoleDTO();
+
+		dto.setName(form.getName());
+
+		List<RoleDTO> list = roleService.search(dto, pageNo, pageSize);
 
 		if (list.size() > 0) {
 			res.setSuccess(true);

@@ -43,21 +43,28 @@ public class RoleDAO {
 
 		List<RoleDTO> list = null;
 
-		// CriteriaBuilder: Query banane ke liye use hota hai
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
-		// CriteriaQuery: batata hai ki query kis type ka result degi (RoleDTO)
 		CriteriaQuery<RoleDTO> cq = builder.createQuery(RoleDTO.class);
 
-		// Root: entity class ko represent karta hai (FROM RoleDTO)
+		List<Predicate> predicateList = new ArrayList<Predicate>();
+
 		Root<RoleDTO> qRoot = cq.from(RoleDTO.class);
 
-		cq.select(qRoot);
+		if (dto != null) {
+			if (dto.getName() != null && dto.getName().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("name"), dto.getName() + "%"));
+			}
+			if (dto.getDescription() != null && dto.getDescription().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("description"), dto.getDescription() + "%"));
+			}
+		}
 
-		// EntityManager se seletct ki actual query create ho rahi hai
+//		cq.select(qRoot);
+		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
+
 		TypedQuery<RoleDTO> tq = entityManager.createQuery(cq);
 
-		// limit 0, 5 pagination query append karne ke liye
 		if (pageSize > 0) {
 			tq.setFirstResult(pageNo * pageSize);
 			tq.setMaxResults(pageSize);
