@@ -1,0 +1,35 @@
+<div align="center">
+
+    <h1>User List</h1>
+
+    <table>
+        <tr>
+            <th>First Name</th>
+            <td> <input type="text" name="firstName" [(ngModel)]="form.searchParam.firstName"
+                    placeholder="search by firstName"> </td>
+            <td>
+                <button (click)="search()">search</button>
+            </td>
+            <td>
+                <button (click)="reset()">reset</button>
+            </td>
+        </tr>
+    </table>
+
+    <table width="100%" border="1px">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Login</th>
+            <th>Dob</th>
+        </tr>
+        <tr align="center" *ngFor="let user of form.list">
+            <td>{{user.id}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.loginId}}</td>
+            <td>{{user.dob | date: 'yyyy-MM-dd'}}</td>
+        </tr>
+    </table>
+</div>

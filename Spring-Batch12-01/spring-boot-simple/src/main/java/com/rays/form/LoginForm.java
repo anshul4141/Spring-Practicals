@@ -8,10 +8,10 @@ import com.rays.dto.UserDTO;
 
 public class LoginForm extends BaseForm {
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "loginId is required")
 	private String loginId;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "password is required")
 	private String password;
 
 	public String getLoginId() {
