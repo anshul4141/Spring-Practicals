@@ -7,6 +7,14 @@
             <th>First Name</th>
             <td> <input type="text" name="firstName" [(ngModel)]="form.searchParam.firstName"
                     placeholder="search by firstName"> </td>
+
+            <th>Role</th>
+            <td><select name="roleId" [(ngModel)]="form.searchParam.roleId" style="width: 100%;">
+                    <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
+                    <option *ngFor="let obj of form.preload" [value]="obj.key">{{obj.value}}</option>
+                </select>
+            </td>
+
             <td>
                 <button (click)="search()">search</button>
             </td>
@@ -18,18 +26,32 @@
 
     <table width="100%" border="1px">
         <tr>
+            <th>Select</th>
             <th>Id</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Image</th>
+            <th>Role</th>
             <th>Login</th>
             <th>Dob</th>
+            <th>Edit</th>
         </tr>
         <tr align="center" *ngFor="let user of form.list">
+            <td align="center"><input type="checkbox" (change)="onCheckboxChange(user.id)"></td>
             <td>{{user.id}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
+            <td ><img height="50px" src="http://localhost:8080/User/profilePic/{{user.id}}"></td>
+            <td>{{user.roleName}}</td>
             <td>{{user.loginId}}</td>
             <td>{{user.dob | date: 'yyyy-MM-dd'}}</td>
+            <td><a (click)="edit('/user/' + user.id)">Edit</a></td>
+        </tr>
+    </table>
+    <br>
+    <table width="100%">
+        <tr>
+            <td><button (click)="delete()">delete</button></td>
         </tr>
     </table>
 </div>

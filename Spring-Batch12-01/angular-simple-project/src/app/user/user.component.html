@@ -1,1 +1,53 @@
-<p>user works!</p>
+<div align="center">
+
+    <h1>Add User</h1>
+
+    <form (submit)="save()">
+        <h2>{{form.message}}</h2>
+        <table>
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName"
+                        placeholder="enter your firstName"></td>
+                <td style="color: red;">{{form.inputerror.firstName}}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" name="lastName" [(ngModel)]="form.data.lastName"
+                        placeholder="enter your lastName"></td>
+                <td style="color: red;">{{form.inputerror.lastName}}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td><select name="roleId" [(ngModel)]="form.data.roleId" style="width: 100%;">
+                        <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
+                        <option *ngFor="let obj of form.preload" [value]="obj.key">{{obj.value}}</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="enter your login">
+                </td>
+                <td style="color: red;">{{form.inputerror.loginId}}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td><input type="password" name="password" [(ngModel)]="form.data.password"
+                        placeholder="enter your password"></td>
+                <td style="color: red;">{{form.inputerror.password}}</td>
+            </tr>
+            <tr>
+                <th>Dob</th>
+                <td><input type="date" name="dob" [(ngModel)]="form.data.dob" style="width: 165px;"></td>
+                <td style="color: red;">{{form.inputerror.dob}}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td *ngIf="form.data.id"><input type="submit" value="update"></td>
+                <td *ngIf="!form.data.id"><input type="submit" value="save"></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
