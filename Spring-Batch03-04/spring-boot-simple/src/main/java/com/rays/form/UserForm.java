@@ -28,6 +28,8 @@ public class UserForm extends BaseForm {
 
 	private long roleId;
 
+	private Long imageId;
+
 	public UserForm() {
 	}
 
@@ -77,6 +79,14 @@ public class UserForm extends BaseForm {
 
 	public void setRoleId(long roleId) {
 		this.roleId = roleId;
+	}
+
+	public Long getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
 	}
 
 	@Override

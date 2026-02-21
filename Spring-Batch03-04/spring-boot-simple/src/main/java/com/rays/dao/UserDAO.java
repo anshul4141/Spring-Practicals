@@ -14,14 +14,19 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rays.dto.AttachmentDTO;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
+import com.rays.service.AttachmentService;
 
 @Repository
 public class UserDAO {
 
 	@Autowired
 	RoleDAO roleDao;
+
+	@Autowired
+	AttachmentService attachmentService;
 
 	@PersistenceContext
 	public EntityManager entityManager;
@@ -47,6 +52,14 @@ public class UserDAO {
 	}
 
 	public void delete(UserDTO dto) {
+		
+		if (dto.getImageId() != null && dto.getImageId() > 0) {
+			AttachmentDTO adto = attachmentService.findById(dto.getImageId());
+			if (adto != null) {
+				attachmentService.delete(adto.getId());
+			}
+		}
+	
 		entityManager.remove(dto);
 	}
 
