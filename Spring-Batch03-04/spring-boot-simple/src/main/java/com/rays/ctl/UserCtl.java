@@ -15,16 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rays.common.BaseCtl;
+import com.rays.common.DropDownListInt;
 import com.rays.common.ORSResponse;
 import com.rays.dto.AttachmentDTO;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserForm;
 import com.rays.service.AttachmentService;
+import com.rays.service.RoleService;
 import com.rays.service.UserService;
 
 @RestController
@@ -35,7 +36,19 @@ public class UserCtl extends BaseCtl {
 	public UserService userService;
 
 	@Autowired
+	public RoleService roleService;
+
+	@Autowired
 	public AttachmentService attachmentService;
+
+	@GetMapping("preload")
+	public ORSResponse preload() {
+		List<DropDownListInt> list = roleService.search(null, 0, 0);
+		ORSResponse res = new ORSResponse();
+		res.addResult("roleList", list);
+		return res;
+
+	}
 
 	@PostMapping("save")
 	public ORSResponse save(@RequestBody @Valid UserForm form, BindingResult bindingResult) {

@@ -52,14 +52,14 @@ public class UserDAO {
 	}
 
 	public void delete(UserDTO dto) {
-		
+
 		if (dto.getImageId() != null && dto.getImageId() > 0) {
 			AttachmentDTO adto = attachmentService.findById(dto.getImageId());
 			if (adto != null) {
 				attachmentService.delete(adto.getId());
 			}
 		}
-	
+
 		entityManager.remove(dto);
 	}
 
@@ -102,6 +102,35 @@ public class UserDAO {
 		list = tq.getResultList();
 
 		return list;
+	}
+
+	public UserDTO findByUniqueKey(String attribute, String value) {
+
+		List<UserDTO> list = null;
+
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+		CriteriaQuery<UserDTO> cq = builder.createQuery(UserDTO.class);
+
+		Root<UserDTO> qRoot = cq.from(UserDTO.class);
+
+		Predicate condition = builder.equal(qRoot.get(attribute), value);
+
+		cq.where(condition);
+
+		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
+
+		list = tq.getResultList();
+
+		UserDTO dto = null;
+
+		if (list.size() > 0) {
+
+			dto = list.get(0);
+
+		}
+
+		return dto;
 	}
 
 }

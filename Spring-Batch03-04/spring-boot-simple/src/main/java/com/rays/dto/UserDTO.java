@@ -100,4 +100,10 @@ public class UserDTO extends BaseDTO {
 		this.imageId = imageId;
 	}
 
+	@Override
+	public String getValue() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

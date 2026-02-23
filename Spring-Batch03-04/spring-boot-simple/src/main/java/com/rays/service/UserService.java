@@ -10,11 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rays.dao.UserDAO;
 import com.rays.dto.UserDTO;
 
-
 @Service
 @Transactional
 public class UserService {
-	
+
 	@Autowired
 	public UserDAO userDao;
 
@@ -59,6 +58,21 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
 		return userDao.search(dto, pageNo, pageSize);
+	}
+
+	@Transactional(readOnly = true)
+	public UserDTO authenticate(String login, String password) {
+		UserDTO dto = new UserDTO();
+
+		dto = userDao.findByUniqueKey("loginId", login);
+
+		if (dto != null) {
+			if (dto.getPassword().equals(password)) {
+				return dto;
+			}
+		}
+
+		return null;
 	}
 
 }
