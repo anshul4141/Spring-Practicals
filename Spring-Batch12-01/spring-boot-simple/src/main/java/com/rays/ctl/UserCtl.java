@@ -66,7 +66,7 @@ public class UserCtl extends BaseCtl {
 
 		dto = (UserDTO) form.getDto();
 
-		long i = userService.add(dto);
+		long i = userService.save(dto);
 
 		if (i != 0) {
 			res.addMessage("user added successfully");
@@ -100,7 +100,7 @@ public class UserCtl extends BaseCtl {
 		return res;
 	}
 
-	@PostMapping("delete/{ids}")
+	@GetMapping("delete/{ids}")
 	public ORSResponse delete(@PathVariable(required = false) long[] ids) {
 
 		ORSResponse res = new ORSResponse();

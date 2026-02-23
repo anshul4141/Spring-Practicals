@@ -23,17 +23,17 @@
             </td>
         </tr>
     </table>
-
+    <br>
     <table width="100%" border="1px">
-        <tr>
+        <tr align="center" style="background-color: lightblue;">
             <th>Select</th>
             <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Image</th>
+            <th>FirstName</th>
+            <th>LastName</th>
             <th>Role</th>
-            <th>Login</th>
-            <th>Dob</th>
+            <th>Image</th>
+            <th>LoginId</th>
+            <th>DOB</th>
             <th>Edit</th>
         </tr>
         <tr align="center" *ngFor="let user of form.list">
@@ -41,8 +41,12 @@
             <td>{{user.id}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
-            <td ><img height="50px" src="http://localhost:8080/User/profilePic/{{user.id}}"></td>
             <td>{{user.roleName}}</td>
+            <td *ngIf="user.imageId"> <img src="http://localhost:8080/User/profilePic/{{user.id}}" height="55px"
+                    width="80px"></td>
+            <td *ngIf="!user.imageId"> <img
+                    src="data:image/png;base64,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"
+                    height="55px" width="80px"></td>
             <td>{{user.loginId}}</td>
             <td>{{user.dob | date: 'yyyy-MM-dd'}}</td>
             <td><a (click)="edit('/user/' + user.id)">Edit</a></td>
@@ -51,7 +55,9 @@
     <br>
     <table width="100%">
         <tr>
+            <td><button [disabled]="form.pageNo == 0" (click)="previous()">previous</button></td>
             <td><button (click)="delete()">delete</button></td>
+            <td align="right"><button [disabled]="form.list.length < 5" (click)="next()">next</button></td>
         </tr>
     </table>
 </div>

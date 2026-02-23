@@ -24,6 +24,16 @@ export class UserListComponent implements OnInit {
     this.preload();
   }
 
+  previous() {
+    this.form.pageNo--;
+    this.search();
+  }
+
+  next() {
+    this.form.pageNo++;
+    this.search();
+  }
+
   preload() {
     var self = this
     this.httpService.get('http://localhost:8080/User/preload', function (res: any) {
