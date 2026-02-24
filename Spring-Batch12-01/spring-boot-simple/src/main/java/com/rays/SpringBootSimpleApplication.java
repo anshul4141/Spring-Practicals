@@ -27,7 +27,8 @@ public class SpringBootSimpleApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addInterceptors(InterceptorRegistry registry) {
-				registry.addInterceptor(frontCtl).addPathPatterns("/**").excludePathPatterns("/Auth/**");
+				registry.addInterceptor(frontCtl).addPathPatterns("/**").excludePathPatterns("/Auth/**")
+						.excludePathPatterns("/User/profilePic/**");
 			}
 
 			@Override

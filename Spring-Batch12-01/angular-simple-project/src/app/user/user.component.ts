@@ -17,6 +17,8 @@ export class UserComponent implements OnInit {
     preload: []
   }
 
+  fileToUpload: any = null;
+
   constructor(private httpService: HttpServiceService, private httpClient: HttpClient, public route: ActivatedRoute) {
 
     this.route.params.subscribe((pathVariable: any) => {
@@ -62,9 +64,26 @@ export class UserComponent implements OnInit {
 
       if (res.success) {
         self.form.message = res.result.message;
-        self.form.data.id = res.result.data;
+        self.form.data.id = res.result.data.id;
       }
 
+      if (self.fileToUpload != null) {
+        self.uploadFile();
+      }
+
+    });
+  }
+
+  onFileSelect(event: any) {
+    this.fileToUpload = event.target.files.item(0);
+    console.log('file===>', this.fileToUpload);
+  }
+
+  uploadFile() {
+    const formData = new FormData();
+    formData.append('file', this.fileToUpload);
+    return this.httpService.post("http://localhost:8080/User/profilePic/" + this.form.data.id, formData, function (res: any) {
+      console.log("imageId = " + res.result.imageId);
     });
   }
 

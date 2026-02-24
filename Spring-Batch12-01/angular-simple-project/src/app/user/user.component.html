@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <th>Role</th>
-                <td><select name="roleId" [(ngModel)]="form.data.roleId" style="width: 100%;">
+                <td><select name="roleId" [(ngModel)]="form.data.roleId" style="width: 67%;">
                         <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
                         <option *ngFor="let obj of form.preload" [value]="obj.key">{{obj.value}}</option>
                     </select>
@@ -42,6 +42,28 @@
                 <td><input type="date" name="dob" [(ngModel)]="form.data.dob" style="width: 165px;"></td>
                 <td style="color: red;">{{form.inputerror.dob}}</td>
             </tr>
+
+            <tr *ngIf="form.data.imageId > 0 && form.data.id > 0">
+                <th>Prfile :</th>
+                <td>
+                    <img src="http://localhost:8080/User/profilePic/{{form.data.id}}" height="90px" width="90px">
+                </td>
+            </tr>
+
+             <tr *ngIf="form.data.id > 0 && form.data.imageId == null">
+                <th>Prfile :</th>
+                <td>
+                    <img src="data:image/png;base64,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" height="90px" width="90px">
+                </td>
+            </tr>
+
+            <tr>
+                <th *ngIf="form.data.id > 0">Update Image :</th>
+                <th *ngIf="form.data.id == null">Upload Image :</th>
+                <td><input type="file" name="imageId" (change)="onFileSelect($event)" accept="image/*">
+                </td>
+            </tr>
+
             <tr>
                 <th></th>
                 <td *ngIf="form.data.id"><input type="submit" value="update"></td>
