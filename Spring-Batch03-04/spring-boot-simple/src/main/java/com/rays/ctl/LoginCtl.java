@@ -14,7 +14,6 @@ import com.rays.common.BaseCtl;
 import com.rays.common.ORSResponse;
 import com.rays.dto.UserDTO;
 import com.rays.form.LoginForm;
-import com.rays.form.UserForm;
 import com.rays.form.UserRegistrationForm;
 import com.rays.service.UserService;
 
@@ -44,6 +43,9 @@ public class LoginCtl extends BaseCtl {
 			res.setSuccess(true);
 			res.addMessage("user login successfully");
 			res.addData(dto);
+		} else {
+			res.setSuccess(false);
+			res.addMessage("invalid login or password");
 		}
 
 		return res;
