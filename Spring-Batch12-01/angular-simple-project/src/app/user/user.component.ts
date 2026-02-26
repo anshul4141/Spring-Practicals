@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpServiceService } from '../http-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -18,8 +19,9 @@ export class UserComponent implements OnInit {
   }
 
   fileToUpload: any = null;
+  imageVersion: number = Date.now();
 
-  constructor(private httpService: HttpServiceService, private httpClient: HttpClient, public route: ActivatedRoute) {
+  constructor(private httpService: HttpServiceService, private httpClient: HttpClient, public route: ActivatedRoute, public router: Router) {
 
     this.route.params.subscribe((pathVariable: any) => {
       this.form.data.id = pathVariable['id'];
@@ -38,6 +40,10 @@ export class UserComponent implements OnInit {
     var self = this;
     this.httpService.get('http://localhost:8080/User/get/' + this.form.data.id, function (res: any) {
       self.form.data = res.result.data;
+      self.form.data.dob = self.form.data.dob.substring(0, 10);
+      if (res.result.data.imageId) {
+        self.form.data.imageId = res.result.data.imageId;
+      }
     })
   }
 
@@ -80,10 +86,14 @@ export class UserComponent implements OnInit {
   }
 
   uploadFile() {
+    let self = this;
     const formData = new FormData();
     formData.append('file', this.fileToUpload);
     return this.httpService.post("http://localhost:8080/User/profilePic/" + this.form.data.id, formData, function (res: any) {
       console.log("imageId = " + res.result.imageId);
+      self.imageVersion = Date.now();
+      self.form.data.imageId = res.result.imageId;
+      self.fileToUpload = null;
     });
   }
 

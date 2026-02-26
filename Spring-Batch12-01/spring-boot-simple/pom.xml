@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.rays</groupId>
 	<artifactId>spring-boot-simple</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-simple Maven Webapp</name>
 	<url>http://maven.apache.org</url>

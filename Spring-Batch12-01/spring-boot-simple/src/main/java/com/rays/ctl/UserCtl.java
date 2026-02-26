@@ -66,38 +66,16 @@ public class UserCtl extends BaseCtl {
 
 		dto = (UserDTO) form.getDto();
 
-		long i = userService.save(dto);
-
-		if (i != 0) {
+		if (dto.getId() != null && dto.getId() > 0) {
+			userService.update(dto);
+			res.addMessage("user updated successfully");
+		} else {
+			long i = userService.add(dto);
 			res.addMessage("user added successfully");
-			res.addData(dto);
 		}
 
 		return res;
 
-	}
-
-	@PostMapping("update")
-	public ORSResponse update(@RequestBody @Valid UserForm form, BindingResult bindingResult) {
-		ORSResponse res = new ORSResponse();
-
-		res = validate(bindingResult);
-
-		if (res.isSuccess() == false) {
-			return res;
-		}
-
-		UserDTO dto = new UserDTO();
-
-		dto = (UserDTO) form.getDto();
-
-		userService.update(dto);
-
-		res.setSuccess(true);
-		res.addMessage("user update successfully");
-		res.addData(dto);
-
-		return res;
 	}
 
 	@GetMapping("delete/{ids}")

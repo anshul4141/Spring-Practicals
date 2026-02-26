@@ -11,23 +11,25 @@ import com.rays.dto.UserDTO;
 
 public class UserForm extends BaseForm {
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "firstName is required")
 	private String firstName;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "lastName is required")
 	private String lastName;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "loginId is required")
 	private String loginId;
 
-	@NotEmpty(message = "first name is required")
+	@NotEmpty(message = "password is required")
 	private String password;
 
-	@NotNull(message = "first name is required")
+	@NotNull(message = "dob is required")
 	private Date dob;
 
-	@NotNull(message = "first name is required")
+	@NotNull(message = "role name is required")
 	private Long roleId;
+
+	private Long imageId;
 
 	public String getFirstName() {
 		return firstName;
@@ -77,6 +79,14 @@ public class UserForm extends BaseForm {
 		this.roleId = roleId;
 	}
 
+	public Long getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
+	}
+
 	@Override
 	public BaseDTO getDto() {
 
@@ -87,6 +97,7 @@ public class UserForm extends BaseForm {
 		dto.setPassword(password);
 		dto.setRoleId(roleId);
 		dto.setDob(dob);
+		dto.setImageId(imageId);
 
 		return dto;
 
