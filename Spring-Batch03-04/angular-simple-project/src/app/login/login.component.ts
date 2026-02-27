@@ -32,7 +32,10 @@ export class LoginComponent {
       }
 
       if (response.success) {
-        self.form.message = response.result.message;
+        localStorage.setItem('firstName', response.result.data.firstName);
+        localStorage.setItem('roleName', response.result.data.roleName);
+        localStorage.setItem('id', response.result.data.id)
+        self.router.navigateByUrl('/welcome');
       }
     })
   }
