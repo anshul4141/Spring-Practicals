@@ -29,7 +29,13 @@ export class SignupComponent {
         self.form.inputerror = response.result.inputerror;
       }
 
-      self.form.message = response.result.message;
+      if (!response.success && response.result.message) {
+        self.form.message = response.result.message;
+      }
+
+      if (response.success) {
+        self.form.message = response.result.message;
+      }
     })
   }
 
