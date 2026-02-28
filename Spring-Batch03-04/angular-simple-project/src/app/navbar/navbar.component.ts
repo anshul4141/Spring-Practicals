@@ -21,6 +21,7 @@ export class NavbarComponent {
     if (check != null && check != undefined && check != '' && check != 'null') {
       this.form.data.firstName = check;
       this.form.data.roleName = localStorage.getItem('roleName');
+      this.form.data.id = localStorage.getItem('id');
       return true;
     } else {
       return false;
@@ -29,7 +30,7 @@ export class NavbarComponent {
 
   logout() {
     localStorage.clear();
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login?message=user logout successfully')
   }
 
 }

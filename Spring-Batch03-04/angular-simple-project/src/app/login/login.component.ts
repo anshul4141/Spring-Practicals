@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,12 +10,18 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private httpService: HttpServiceService, private router: Router) { }
-
   form: any = {
     data: {},
     message: '',
     inputerror: {}
+  }
+
+  constructor(private httpService: HttpServiceService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params['message']) {
+        this.form.message = params['message'];
+      }
+    });
   }
 
   signIn() {
