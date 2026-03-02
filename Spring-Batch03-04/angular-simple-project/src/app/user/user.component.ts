@@ -1,21 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
 
   endpoint = 'http://localhost:8081/User/save';
-
-  constructor(private httpService: HttpServiceService) { }
 
   form: any = {
     data: {},
     message: '',
     inputerror: {}
+  }
+
+  fileToUpload: any = null;
+
+  constructor(private httpService: HttpServiceService, private route: ActivatedRoute) {
+    this.route.params.subscribe((pathVariable: any) => {
+      this.form.data.id = pathVariable['id'];
+    })
+  }
+
+  ngOnInit(): void {
+    if (this.form.data.id && this.form.data.id > 0) {
+      this.display();
+    }
+  }
+
+  display() {
+    var self = this;
+    this.httpService.get('http://localhost:8081/User/get/' + this.form.data.id, function (res: any) {
+      self.form.data = res.result.data;
+      self.form.data.dob = res.result.data.dob.substring(0, 10);
+      if (res.result.data.imageId) {
+        self.form.data.imageId = res.result.data.imageId;
+      }
+    })
   }
 
   save() {
@@ -34,8 +58,29 @@ export class UserComponent {
 
       if (response.success) {
         self.form.message = response.result.message;
+        self.form.data.id = response.result.data.id;
+      }
+
+      if (self.fileToUpload != null) {
+        self.uploadFile();
       }
     })
+  }
+
+  onFileSelect(event: any) {
+    this.fileToUpload = event.target.files.item(0);
+    console.log('file===>', this.fileToUpload);
+  }
+
+  uploadFile() {
+    let self = this;
+    const formData = new FormData();
+    formData.append('file', this.fileToUpload);
+    return this.httpService.post("http://localhost:8081/User/profilePic/" + this.form.data.id, formData, function (res: any) {
+      console.log("imageId = " + res.result.imageId);
+      self.form.data.imageId = res.result.imageId;
+      self.fileToUpload = null;
+    });
   }
 
 }

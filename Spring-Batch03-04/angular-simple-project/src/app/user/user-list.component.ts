@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -11,14 +12,41 @@ export class UserListComponent implements OnInit {
   form: any = {
     list: [],
     searchParam: {},
-    pageNo: 0
+    pageNo: 0,
+    deleteParams: [],
   }
 
-  constructor(private httpService: HttpServiceService) { }
+  constructor(private httpService: HttpServiceService, private router: Router) { }
 
   ngOnInit(): void {
     console.log('user list component init');
     this.search();
+  }
+
+  previous() {
+    this.form.pageNo--
+    this.search();
+  }
+
+  next() {
+    this.form.pageNo++
+    this.search();
+  }
+
+  onCheckboxChange(userId: any) {
+    this.form.deleteParams.id = userId;
+    console.log('ids: ', this.form.deleteParams.id);
+  }
+
+  delete() {
+    console.log('delete user id: ', this.form.deleteParams.id);
+    var self = this
+    this.httpService.get('http://localhost:8081/User/delete/' + this.form.deleteParams.id, function (res: any) {
+      if (res.success && res.result.message) {
+        self.form.message = res.result.message;
+      }
+      self.search()
+    })
   }
 
   search() {
@@ -31,6 +59,11 @@ export class UserListComponent implements OnInit {
         console.log('user list ====== ', self.form.list)
       }
     })
+  }
+
+  edit(path: any) {
+    console.log('path: ', path)
+    this.router.navigateByUrl(path);
   }
 
 }
