@@ -63,15 +63,15 @@ public class UserCtl extends BaseCtl {
 
 		if (dto.getId() != null && dto.getId() > 0) {
 			userService.update(dto);
-			res.addData(dto.getId());
-			res.addMessage("Data Updated Successfully..!!");
+			res.addData(dto);
+			res.addMessage("User Updated Successfully..!!");
 			res.setSuccess(true);
 
 		} else {
 
 			long pk = userService.add(dto);
-			res.addData(pk);
-			res.addMessage("Data added Successfully..!!");
+			res.addData(dto);
+			res.addMessage("User added Successfully..!!");
 			res.setSuccess(true);
 
 		}

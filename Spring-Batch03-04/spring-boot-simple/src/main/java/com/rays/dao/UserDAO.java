@@ -48,6 +48,10 @@ public class UserDAO {
 	}
 
 	public void update(UserDTO dto) {
+		if (dto.getRoleId() != null && dto.getRoleId() > 0) {
+			RoleDTO roleDto = roleDao.findByPk(dto.getRoleId());
+			dto.setRoleName(roleDto.getName());
+		}
 		entityManager.merge(dto);
 	}
 
@@ -86,6 +90,9 @@ public class UserDAO {
 			}
 			if (dto.getLastName() != null && dto.getLastName().length() > 0) {
 				predicateList.add(builder.like(qRoot.get("lastName"), dto.getLastName() + "%"));
+			}
+			if (dto.getRoleId() != null && dto.getRoleId() > 0) {
+				predicateList.add(builder.equal(qRoot.get("roleId"), dto.getRoleId()));
 			}
 		}
 

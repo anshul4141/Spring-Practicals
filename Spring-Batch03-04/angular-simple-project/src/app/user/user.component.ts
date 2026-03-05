@@ -14,7 +14,8 @@ export class UserComponent implements OnInit {
   form: any = {
     data: {},
     message: '',
-    inputerror: {}
+    inputerror: {},
+    roleList: []
   }
 
   fileToUpload: any = null;
@@ -29,6 +30,14 @@ export class UserComponent implements OnInit {
     if (this.form.data.id && this.form.data.id > 0) {
       this.display();
     }
+    this.preload()
+  }
+
+  preload() {
+    let self = this;
+    this.httpService.get('http://localhost:8081/User/preload', function (res: any) {
+      self.form.roleList = res.result.roleList;
+    })
   }
 
   display() {

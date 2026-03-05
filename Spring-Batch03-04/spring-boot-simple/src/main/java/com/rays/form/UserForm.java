@@ -98,6 +98,7 @@ public class UserForm extends BaseForm {
 		dto.setPassword(password);
 		dto.setDob(dob);
 		dto.setRoleId(roleId);
+		dto.setImageId(imageId);
 
 		return dto;
 	}
