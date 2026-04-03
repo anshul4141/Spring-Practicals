@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Inventory inventory = new Inventory(); -->
+	<bean id="inventory" class="com.rays.ioc.Inventory">
+		<property name="stock" value="20"></property> <!-- inventory.setStock(10); -->
+	</bean>
+
+	<bean id="payment" class="com.rays.ioc.Payment">
+		<property name="balance" value="150"></property>
+	</bean>
+
+	<bean id="order1" class="com.rays.ioc.Order1">
+
+		<property name="inventory" ref="inventory"></property>
+		<property name="payment" ref="payment"></property>
+
+	</bean>
+
+</beans>
