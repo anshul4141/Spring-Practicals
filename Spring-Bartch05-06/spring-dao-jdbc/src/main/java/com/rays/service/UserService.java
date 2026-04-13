@@ -17,8 +17,25 @@ public class UserService {
 		return pk;
 	}
 
+	public void update(UserDTO dto) {
+		dao.update(dto);
+
+	}
+
 	public void delete(int id) {
 		dao.delete(id);
+	}
+
+	public UserDTO findByPk(int id) {
+		return dao.findByPk(id);
+	}
+
+	public UserDTO findByLogin(String login) {
+		return dao.findByLogin(login);
+	}
+
+	public UserDTO authenticate(String login, String password) {
+		return dao.authenticate(login, password);
 	}
 
 }

@@ -8,6 +8,14 @@ public interface UserDAOInt {
 
 	public long add(UserDTO dto);
 
+	public void update(UserDTO dto);
+
 	public void delete(int id);
+
+	public UserDTO findByPk(int id);
+
+	public UserDTO findByLogin(String login);
+
+	public UserDTO authenticate(String login, String password);
 
 }

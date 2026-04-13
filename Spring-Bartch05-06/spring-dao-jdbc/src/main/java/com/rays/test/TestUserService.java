@@ -21,7 +21,78 @@ public class TestUserService {
 		TestUserService test = (TestUserService) context.getBean("testUserService");
 
 //		test.testAdd();
-		test.testDelete();
+//		test.testUpdate();
+//		test.testDelete();
+//		test.testFindByPk();
+//		test.testFindByLogin();
+		test.testAuthencticate();
+
+	}
+
+	private void testFindByLogin() {
+		UserDTO dto = new UserDTO();
+
+		dto = service.findByLogin("abc123@gmail.com");
+
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("user not found");
+		}
+
+	}
+
+	private void testAuthencticate() {
+
+		UserDTO dto = new UserDTO();
+
+		dto = service.authenticate("abc@gmail.com", "abc1243");
+
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("invalid login or password");
+		}
+
+	}
+
+	private void testFindByPk() {
+
+		UserDTO dto = new UserDTO();
+
+		dto = service.findByPk(10);
+
+		if (dto != null) {
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getPassword());
+		} else {
+			System.out.println("user not found");
+		}
+
+	}
+
+	private void testUpdate() {
+
+		UserDTO dto = new UserDTO();
+
+		dto.setId(2);
+		dto.setFirstName("Ram");
+		dto.setLastName("Sharma");
+		dto.setLogin("ram@gmail.com");
+		dto.setPassword("ram123");
+
+		service.update(dto);
 
 	}
 
