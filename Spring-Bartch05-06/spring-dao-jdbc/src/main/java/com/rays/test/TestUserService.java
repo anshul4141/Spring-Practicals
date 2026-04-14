@@ -1,5 +1,8 @@
 package com.rays.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -25,7 +28,29 @@ public class TestUserService {
 //		test.testDelete();
 //		test.testFindByPk();
 //		test.testFindByLogin();
-		test.testAuthencticate();
+//		test.testAuthencticate();
+		test.testSearch();
+
+	}
+
+	private void testSearch() {
+
+		UserDTO dto = new UserDTO();
+
+		//dto.setFirstName("abc");
+		
+		List<UserDTO> list = service.search(dto, 1, 5);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			dto = it.next();
+			System.out.println(dto.getId());
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getPassword());
+		}
 
 	}
 
@@ -102,9 +127,9 @@ public class TestUserService {
 
 	public void testAdd() {
 		UserDTO dto = new UserDTO();
-		dto.setFirstName("Ram");
-		dto.setLastName("Sharma");
-		dto.setLogin("ram@gmail.com");
+		dto.setFirstName("Pawan");
+		dto.setLastName("Verma");
+		dto.setLogin("pawan@gmail.com");
 		dto.setPassword("ram123");
 		long i = service.add(dto);
 		System.out.println("Data Inserted... row affected = " + i);
