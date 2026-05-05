@@ -2,14 +2,19 @@ package com.rays.ctl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rays.common.BaseCtl;
 import com.rays.common.ORSResponse;
 import com.rays.dto.RoleDTO;
 import com.rays.form.RoleForm;
@@ -17,15 +22,21 @@ import com.rays.service.RoleService;
 
 @RestController
 @RequestMapping(value = "Role")
-public class RoleCtl {
+public class RoleCtl extends BaseCtl {
 
 	@Autowired
 	RoleService roleService;
 
 	@PostMapping("save")
-	public ORSResponse save(@RequestBody RoleForm form) {
+	public ORSResponse save(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 
 		ORSResponse res = new ORSResponse();
+
+		res = validate(bindingResult);
+
+		if (res.isSuccess() == false) {
+			return res;
+		}
 
 		RoleDTO dto = new RoleDTO();
 
@@ -102,14 +113,16 @@ public class RoleCtl {
 
 	}
 
-	@GetMapping("search/{pageNo}")
-	public ORSResponse search(@PathVariable(required = false) int pageNo) {
+	@RequestMapping(value = "/search/{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
+	public ORSResponse search(@RequestBody RoleForm form, @PathVariable(required = false) int pageNo) {
 
 		int pageSize = 5;
 
 		ORSResponse res = new ORSResponse();
 
 		RoleDTO dto = new RoleDTO();
+
+		dto.setName(form.getName());
 
 		List<RoleDTO> list = roleService.search(dto, pageNo, pageSize);
 

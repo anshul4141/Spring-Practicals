@@ -43,17 +43,29 @@ public class RoleDAO {
 
 		List<RoleDTO> list = null;
 
-		// CriteriaBuilder SQL query programmatically banane ke kaam aata hai(sql query banane ke liye)
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
-		// RoleDTO type ki query banate hain (result RoleDTO hoga)(CriteriaQueiry DTO Type ki query banane ke liye)
 		CriteriaQuery<RoleDTO> cq = builder.createQuery(RoleDTO.class);
 
-		// Query kis table/entity par chalegi - yaha RoleDTO table
 		Root<RoleDTO> qRoot = cq.from(RoleDTO.class);
 
-		// final query = select * from RoleDTO
-		cq.select(qRoot);
+		// Predicate is use to hold multiple search filter in jpa
+		List<Predicate> predicateList = new ArrayList<Predicate>();
+
+		if (dto != null) {
+			if (dto.getId() != null && dto.getId() > 0) {
+				predicateList.add(builder.equal(qRoot.get("id"), dto.getId()));
+			}
+			if (dto.getName() != null && dto.getName().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("name"), dto.getName() + "%"));
+			}
+			if (dto.getDescription() != null && dto.getDescription().length() > 0) {
+				predicateList.add(builder.like(qRoot.get("description"), dto.getDescription() + "%"));
+			}
+		}
+
+		// convert predicateList to array
+		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
 		TypedQuery<RoleDTO> tq = entityManager.createQuery(cq);
 
