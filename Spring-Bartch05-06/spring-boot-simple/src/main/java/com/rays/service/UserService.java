@@ -60,4 +60,21 @@ public class UserService {
 		return userDao.search(dto, pageNo, pageSize);
 	}
 
+	@Transactional(readOnly = true)
+	public UserDTO authenticate(String login, String password) {
+
+		UserDTO dto = new UserDTO();
+
+		dto = userDao.findByUniqueKey("loginId", login);
+
+		System.out.println("name: " + dto.getFirstName());
+		System.out.println("password: " + dto.getPassword());
+
+		if (dto != null && dto.getPassword().equals(password)) {
+			return dto;
+		}
+		return null;
+
+	}
+
 }
