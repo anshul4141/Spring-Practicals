@@ -4,9 +4,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Person p = new Pserson(); -->
-	<bean id="p" class="com.rays.test.Person">
-		<property name="name" value="Ram"></property> <!-- p.setName("Ram") -->
-		<property name="address" value="Indore"></property> <!-- p.setAddress("Indore") -->
+	<!-- <bean id="p" class="com.rays.test.Person"> <property name="name" value="Shyam"></property> 
+		p.setName("Ram") <property name="address" value="Bhopal"></property> p.setAddress("Indore") 
+		</bean> -->
+
+	<!-- Person person = new Person("Kamlesh", "Pune"); -->
+	<bean id="person" class="com.rays.test.Person">
+		<constructor-arg value="Kamlesh"></constructor-arg>
+		<constructor-arg value="Pune"></constructor-arg>
 	</bean>
 
 </beans>

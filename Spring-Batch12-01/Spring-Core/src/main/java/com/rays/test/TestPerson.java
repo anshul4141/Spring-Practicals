@@ -10,7 +10,7 @@ public class TestPerson {
 
 		BeanFactory factory = new XmlBeanFactory(new ClassPathResource("Person.xml"));
 
-		Person p = (Person) factory.getBean("p");
+		Person p = (Person) factory.getBean("person");
 
 		System.out.println(p.getName());
 		System.out.println(p.getAddress());
