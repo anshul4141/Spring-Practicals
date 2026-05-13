@@ -1,1 +1,45 @@
-<h1>signup works!</h1>
+<div align="center">
+
+    <h1>User Registration</h1>
+
+    <form (submit)="signUp()">
+
+        <table>
+
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName"
+                        placeholder="enter first name"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" name="lastName" [(ngModel)]="form.data.lastName" placeholder="enter last name">
+                </td>
+            </tr>
+            <tr>
+                <th>LoginId</th>
+                <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="enter login ID"></td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td><input type="password" name="password" [(ngModel)]="form.data.password"
+                        placeholder="enter password"></td>
+            </tr>
+            <tr>
+                <th>dob</th>
+                <td><input type="date" name="dob" [(ngModel)]="form.data.dob" placeholder="enter date of birth"
+                        style="width: 98%;"></td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td><input type="text" name="address" [(ngModel)]="form.data.address" placeholder="enter address"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="SignUp"></td>
+            </tr>
+        </table>
+
+    </form>
+
+</div>

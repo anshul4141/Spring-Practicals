@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class SignupComponent {
 
+  form: any = {
+    data: {}
+  }
+
+  signUp() {
+    console.log('firstName: ' + this.form.data.firstName);
+    console.log('lastName: ' + this.form.data.lastName);
+    console.log('loginId: ' + this.form.data.loginId);
+    console.log('password: ' + this.form.data.password);
+    console.log('dob: ' + this.form.data.dob);
+    console.log('address: ' + this.form.data.address);
+  }
+
 }
