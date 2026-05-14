@@ -26,27 +26,21 @@ public class UserDAO {
 	@PersistenceContext
 	public EntityManager entityManager;
 
+	public void populate(UserDTO dto) {
+		if (dto.getRoleId() != null && dto.getRoleId() > 0) {
+			RoleDTO roleDto = roleDao.findByPk(dto.getRoleId());
+			dto.setRoleName(roleDto.getName());
+		}
+	}
+
 	public long add(UserDTO dto) {
-		dto = populate(dto);
+		populate(dto);
 		entityManager.persist(dto);
 		return dto.getId();
 	}
 
-	public UserDTO populate(UserDTO dto) {
-
-		if (dto.getRoleId() != null && dto.getRoleId() > 0) {
-			RoleDTO roleDto = roleDao.findByPk(dto.getRoleId());
-			dto.setRoleName(roleDto.getName());
-		}
-
-		return dto;
-	}
-
 	public void update(UserDTO dto) {
-		if (dto.getRoleId() != null && dto.getRoleId() > 0) {
-			RoleDTO roleDto = roleDao.findByPk(dto.getRoleId());
-			dto.setRoleName(roleDto.getName());
-		}
+		populate(dto);
 		entityManager.merge(dto);
 	}
 
@@ -83,7 +77,6 @@ public class UserDAO {
 			}
 		}
 
-//		cq.select(qRoot);
 		cq.where(predicateList.toArray(new Predicate[predicateList.size()]));
 
 		TypedQuery<UserDTO> tq = entityManager.createQuery(cq);
@@ -101,6 +94,7 @@ public class UserDAO {
 	public UserDTO findByUniqueKey(String attribute, String value) {
 
 		List<UserDTO> list = null;
+		
 		UserDTO dto = new UserDTO();
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
