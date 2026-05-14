@@ -19,4 +19,9 @@
 		<property name="payment" ref="payment"></property>
 	</bean>
 
+	<bean id="order1" class="com.rays.ioc.Order1">
+		<constructor-arg ref="payment"></constructor-arg>
+		<constructor-arg ref="inventry"></constructor-arg>
+	</bean>
+
 </beans>
