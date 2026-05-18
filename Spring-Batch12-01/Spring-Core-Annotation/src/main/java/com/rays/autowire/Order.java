@@ -6,11 +6,25 @@ import org.springframework.stereotype.Component;
 @Component("order")
 public class Order {
 
-	@Autowired
 	private Payment payment;
 
-	@Autowired
 	private Inventry inventry;
+
+//	@Autowired
+//	public Order(Payment payment, Inventry inventry) {
+//		this.payment = payment;
+//		this.inventry = inventry;
+//	}
+
+	@Autowired
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
+	@Autowired
+	public void setInventry(Inventry inventry) {
+		this.inventry = inventry;
+	}
 
 	public void bookATicket(int items) {
 
