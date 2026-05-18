@@ -94,8 +94,8 @@ public class UserDAO {
 	public UserDTO findByUniqueKey(String attribute, String value) {
 
 		List<UserDTO> list = null;
-		
-		UserDTO dto = new UserDTO();
+
+		UserDTO dto = null;
 
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
@@ -112,6 +112,7 @@ public class UserDAO {
 		list = tq.getResultList();
 
 		if (list.size() == 1) {
+			dto = new UserDTO();
 			dto = list.get(0);
 		}
 

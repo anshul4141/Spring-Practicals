@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { HttpServiceService } from '../http-service.service';
 })
 export class LoginComponent {
 
-  constructor(public httpService: HttpServiceService) { }
+  constructor(public httpService: HttpServiceService, public router: Router) { }
 
   endpoint: any = "http://localhost:8081/Auth/login"
 
@@ -28,7 +29,10 @@ export class LoginComponent {
       } else if (response.success == false && response.result.message) {
         self.form.errorMessage = response.result.message;
       } else if (response.success == true) {
-        self.form.message = response.result.message;
+        localStorage.setItem('firstName', response.result.data.firstName);
+        localStorage.setItem('roleName', response.result.data.roleName);
+        localStorage.setItem('id', response.result.data.id);
+        self.router.navigateByUrl('/welcome');
       }
     });
   }

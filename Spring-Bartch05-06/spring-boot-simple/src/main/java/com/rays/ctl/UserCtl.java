@@ -56,10 +56,15 @@ public class UserCtl extends BaseCtl {
 
 		} else {
 
-			long pk = userService.add(dto);
-			res.addData(dto);
-			res.addMessage("User added Successfully..!!");
-			res.setSuccess(true);
+			try {
+				long pk = userService.add(dto);
+				res.addData(dto);
+				res.addMessage("User added Successfully..!!");
+				res.setSuccess(true);
+			} catch (RuntimeException e) {
+				res.addMessage("login already exist");
+				res.setSuccess(false);
+			}
 
 		}
 

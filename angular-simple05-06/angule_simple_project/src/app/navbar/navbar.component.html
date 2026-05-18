@@ -1,4 +1,16 @@
-<h3>Hi, Guest</h3>
-<a href="/login"><b>Login</b></a> |
-<a href="/signup"><b>Signup</b></a>
+<div *ngIf="!isLogin()">
+    <h3>Hi, Guest</h3>
+    <a href="/login"><b>Login</b></a> |
+    <a href="/signup"><b>Signup</b></a>
+</div>
+
+<div *ngIf="isLogin()">
+    <h3>Hi,{{form.data.firstName}}({{form.data.roleName}})</h3>
+    <a href="#"><b>Add User</b></a> |
+    <a href="#"><b>User List</b></a> |
+    <a (click)="logout()"><u>
+            <font color="blue">Logout</font>
+        </u></a>
+</div>
+
 <hr>
