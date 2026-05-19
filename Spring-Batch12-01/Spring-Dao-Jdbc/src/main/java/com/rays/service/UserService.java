@@ -1,5 +1,7 @@
 package com.rays.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,6 +18,13 @@ public class UserService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) {
+
+		UserDTO existDto = findByLogin(dto.getLogin());
+
+		if (existDto != null) {
+			throw new RuntimeException("login already exist");
+		}
+
 		long i = dao.add(dto);
 		return i;
 	}
@@ -23,6 +32,27 @@ public class UserService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void delete(UserDTO dto) {
 		dao.delete(dto);
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void update(UserDTO dto) {
+		dao.update(dto);
+	}
+
+	public UserDTO findByPk(long id) {
+		return dao.findByPk(id);
+	}
+
+	public UserDTO findByLogin(String login) {
+		return dao.findByLogin(login);
+	}
+
+	public UserDTO authenticate(String login, String password) {
+		return dao.authenticate(login, password);
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+		return dao.search(dto, pageNo, pageSize);
 	}
 
 }
