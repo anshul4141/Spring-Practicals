@@ -1,8 +1,9 @@
 <div align="center">
     <h2>User List</h2>
 
-    <form>
+    <h2>{{form.message}}</h2>
 
+    <form>
         <table>
             <tr>
                 <th>First Name</th>
@@ -21,31 +22,34 @@
 
         <table width="100%" border="1">
             <tr style="background-color: skyblue;">
+                <th>Select</th>
                 <th>Id</th>
                 <th>FirstName</th>
                 <th>LastName</th>
+                <th>Role</th>
                 <th>LoginId</th>
                 <th>DOB</th>
+                <th>Edit</th>
             </tr>
 
             <tr align="center" *ngFor="let user of form.list">
+                <td><input type="checkbox" (click)="onClickCheckBox(user.id)"></td>
                 <td>{{user.id}}</td>
                 <td>{{user.firstName}}</td>
                 <td>{{user.lastName}}</td>
+                <td>{{user.roleName}}</td>
                 <td>{{user.loginId}}</td>
                 <td>{{user.dob | date: 'yyyy-MM-dd'}}</td>
+                <td> <a (click)="edit( '/user/' +  user.id)" style="color: blue;">edit
+                    </a></td>
             </tr>
 
         </table>
-        <table>
+        <table width="100%">
             <tr>
-
-                <td>
-                    <button [disabled]="form.pageNo == 0" (click)="previous()">previous</button>
-                    &nbsp;&nbsp;
-                    <button [disabled]="form.list.length < 10" (click)="next()">next</button>
-                    &nbsp;&nbsp;
-                </td>
+                <td><button [disabled]="form.pageNo == 0" (click)="previous()">previous</button></td>
+                <td><button (click)="delete()">delete</button></td>
+                <td align="right"><button [disabled]="form.list.length < 5" (click)="next()">next</button></td>
             </tr>
         </table>
     </form>

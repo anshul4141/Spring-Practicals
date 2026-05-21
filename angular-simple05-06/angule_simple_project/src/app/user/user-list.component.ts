@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,12 +10,14 @@ import { HttpServiceService } from '../http-service.service';
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private httpService: HttpServiceService) { }
+  constructor(private httpService: HttpServiceService, private router: Router) { }
 
   form: any = {
     list: [],
     searchParam: {},
     pageNo: 0,
+    deleteParams: [],
+    message: ''
   }
 
   ngOnInit(): void {
@@ -41,10 +44,29 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  onClickCheckBox(userId: any) {
+    this.form.deleteParams = userId;
+  }
+
+  delete() {
+    var self = this
+    this.httpService.get('http://localhost:8081/User/delete/' + this.form.deleteParams, function (response: any) {
+      if (response.success == true && response.result.message) {
+        self.form.message = response.result.message;
+      }
+      self.search()
+    })
+  }
+
+  edit(page: any) {
+    console.log("page ==> ", page);
+    this.router.navigateByUrl(page);
+  }
+
   reset() {
-    // location.reload();
-    this.form.searchParam = {};
-    this.search();
+    location.reload();
+    // this.form.searchParam = {};
+    // this.search();
   }
 
 }
