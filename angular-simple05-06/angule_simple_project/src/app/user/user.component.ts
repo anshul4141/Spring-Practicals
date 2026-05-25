@@ -7,13 +7,15 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent{
+export class UserComponent {
 
   form: any = {
     data: {},
     inputerror: {},
     message: '',
   }
+
+  fileToUpload: any = null;
 
   constructor(private httpService: HttpServiceService, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.params.subscribe((params: any) => {
@@ -31,6 +33,10 @@ export class UserComponent{
     this.httpService.get('http://localhost:8081/User/get/' + this.form.data.id, function (res: any) {
       console.log(res)
       self.form.data = res.result.data;
+      self.form.data.dob = res.result.data.dob.substring(0, 10);
+      if (res.result.data.imageId) {
+        self.form.data.imageId = res.result.data.imageId;
+      }
     });
 
   }
@@ -52,6 +58,33 @@ export class UserComponent{
         self.form.data.id = response.result.data.id;
       }
 
+      if (self.fileToUpload != null) {
+        self.uploadFile();
+      }
+
     });
   }
+
+  onFileSelect(event: any) {
+    this.fileToUpload = event.target.files.item(0);
+    console.log('file===>', this.fileToUpload);
+  }
+
+  uploadFile() {
+
+    let self = this;
+
+    const formData = new FormData();
+
+    formData.append('file', this.fileToUpload);
+
+    return this.httpService.post("http://localhost:8081/User/profilePic/" + this.form.data.id, formData, function (res: any) {
+
+      console.log("imageId = " + res.result.imageId);
+      self.form.data.imageId = res.result.imageId;
+      self.fileToUpload = null;
+
+    });
+  }
+
 } 1
