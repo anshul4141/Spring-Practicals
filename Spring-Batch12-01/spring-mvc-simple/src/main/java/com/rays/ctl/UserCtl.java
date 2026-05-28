@@ -1,6 +1,5 @@
 package com.rays.ctl;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,49 +17,73 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserForm;
 import com.rays.service.UserService;
+import com.rays.util.DataUtility;
 
 @Controller
-@RequestMapping(value = "user")
+@RequestMapping(value = "/ctl/User")
 public class UserCtl {
 
 	@Autowired
-	UserService service;
+	public UserService service;
+
+	@ModelAttribute("form")
+	public void preload(Model model) {
+		List list = service.search(null, 0, 0);
+		model.addAttribute("userList", list);
+	}
 
 	@GetMapping
-	public String display(@ModelAttribute("form") UserForm form) {
-		return "UserView"; // return prefix
+	public String display(@ModelAttribute("form") UserForm form, @RequestParam(required = false) Long id, Model model) {
+
+		if (id != null && id > 0) {
+			UserDTO dto = service.findByPk(id);
+			form.setId(dto.getId());
+			form.setFirstName(dto.getFirstName());
+			form.setLastName(dto.getLastName());
+			form.setLogin(dto.getLogin());
+			form.setPassword(dto.getPassword());
+			form.setDob(DataUtility.dateToString(dto.getDob()));
+			form.setAddress(dto.getAddress());
+		}
+
+		return "UserView";
 	}
 
 	@PostMapping
-	public String save(@ModelAttribute("form") @Valid UserForm form, BindingResult bindingResult, Model model)
-			throws Exception {
+	public String submit(@ModelAttribute("form") @Valid UserForm form, BindingResult bindingResult, Model model) {
 
 		if (bindingResult.hasErrors()) {
 			return "UserView";
 		}
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 		UserDTO dto = new UserDTO();
-
+		dto.setId(form.getId());
 		dto.setFirstName(form.getFirstName());
 		dto.setLastName(form.getLastName());
 		dto.setLogin(form.getLogin());
 		dto.setPassword(form.getPassword());
-		dto.setDob(sdf.parse(form.getDob()));
+		dto.setDob(DataUtility.stringToDate(form.getDob()));
 		dto.setAddress(form.getAddress());
 
-		service.add(dto);
-		model.addAttribute("msg", "user saved successfully successfully");
-
+		if (form.getId() > 0) {
+			service.update(dto);
+			model.addAttribute("success", "User Updated Successfully..!!");
+		} else {
+			service.add(dto);
+			model.addAttribute("success", "User Added Successfully..!!");
+		}
 		return "UserView";
-
 	}
 
-	@GetMapping("/search")
-	public String search(@ModelAttribute("form") UserForm form, Model model) {
+	@GetMapping("search")
+	public String display(@ModelAttribute("form") UserForm form, Model model) {
 
-		List<UserDTO> list = service.search(null, 1, 5);
+		int pageNo = 1;
+		int pageSize = 5;
+
+		List list = service.search(null, pageNo, pageSize);
+
+		form.setPageNo(pageNo);
 
 		model.addAttribute("list", list);
 
@@ -78,30 +101,44 @@ public class UserCtl {
 		int pageSize = 5;
 
 		if (operation.equals("next")) {
+
+			pageNo = form.getPageNo();
+
 			pageNo++;
+
 		}
 
 		if (operation.equals("previous")) {
+
+			pageNo = form.getPageNo();
+
 			pageNo--;
+
 		}
 
+		if (operation.equals("search")) {
+
+			dto = new UserDTO();
+
+			dto.setId(form.getId());
+
+			dto.setFirstName(form.getFirstName());
+
+		}
 		if (operation.equals("delete")) {
 			if (form.getIds() != null && form.getIds().length > 0) {
 				for (long id : form.getIds()) {
 					service.delete(id);
-					model.addAttribute("msg", "records deleted successfully");
 				}
-			} else {
-				model.addAttribute("msg", "select at least one or more records");
 			}
 		}
 
 		form.setPageNo(pageNo);
+
 		List list = service.search(dto, pageNo, pageSize);
 
 		model.addAttribute("list", list);
 
 		return "UserListView";
 	}
-
 }

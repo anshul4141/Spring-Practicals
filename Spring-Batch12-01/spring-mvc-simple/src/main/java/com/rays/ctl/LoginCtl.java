@@ -22,23 +22,27 @@ import com.rays.service.UserService;
 public class LoginCtl {
 
 	@Autowired
-	UserService service;
+	public UserService service;
 
 	@GetMapping
 	public String display(@ModelAttribute("form") LoginForm form, @RequestParam(required = false) String operation,
-			HttpSession session, Model model) {
+			HttpSession session) {
 
-		if (operation != null) {
+		if (operation != null && operation.equals("logout")) {
 			session.invalidate();
-			model.addAttribute("msg", "logout successfully");
+			return "redirect:login";
 		}
 
 		return "LoginView";
 	}
 
 	@PostMapping
-	public String login(@ModelAttribute("form") @Valid LoginForm form, BindingResult bindingResult, HttpSession session,
-			Model model) {
+	public String submit(@ModelAttribute("form") @Valid LoginForm form, BindingResult bindingResult,
+			@RequestParam(required = false) String operation, HttpSession session, Model model) {
+
+		if (operation.equals("signUp")) {
+			return "redirect:Register";
+		}
 
 		if (bindingResult.hasErrors()) {
 			return "LoginView";
@@ -48,12 +52,10 @@ public class LoginCtl {
 
 		if (dto != null) {
 			session.setAttribute("user", dto);
-			return "redirect:/Welcome";
-		} else {
-			model.addAttribute("msg", "invalid login or passwored");
+			return "redirect:Welcome";
 		}
+		model.addAttribute("error", "login & password is invalid..!!");
 		return "LoginView";
-
 	}
 
 }

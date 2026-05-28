@@ -10,10 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WelcomeCtl {
 
 	@GetMapping
-	public String display(Model model) {
-		System.out.println("in display method...!");
-		model.addAttribute("msg", "Online Result System");
-		return "Welcome"; // return prefix
+	public String display() {
+		System.out.println("display");
+		return "Welcome";
+	}
+
+	@GetMapping("first")
+	public String display1() {
+		System.out.println("display1");
+		return "Welcome";
+	}
+
+	@GetMapping("second")
+	public String display2() {
+		System.out.println("display2");
+		return "Welcome";
+	}
+
+	@GetMapping("getMessage")
+	public String getMessage(Model model) {
+		model.addAttribute("msg", "Welcome to Spring MVC..!!");
+		return "Welcome";
 	}
 
 }

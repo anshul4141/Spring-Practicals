@@ -4,31 +4,31 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserRegistrationForm {
 
-	protected Long id = null;
+	protected long id = 0;
 
-	@NotEmpty(message = "firstName is required")
-	private String firstName = null;
+	@NotEmpty(message = "first name is required")
+	private String firstName;
 
-	@NotEmpty(message = "lastName is required")
-	private String lastName = null;
+	@NotEmpty(message = "last name is required")
+	private String lastName;
 
 	@NotEmpty(message = "login is required")
-	private String login = null;
+	private String login;
 
 	@NotEmpty(message = "password is required")
-	private String password = null;
+	private String password;
 
 	@NotEmpty(message = "dob is required")
 	private String dob;
 
 	@NotEmpty(message = "address is required")
-	private String address = null;
+	private String address;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -21,13 +21,8 @@
 	<%@ include file="Header.jsp"%>
 	<sf:form method="post" modelAttribute="form">
 		<div align="center">
-			<c:if test="${form.id>0}">
-				<h1 style="color: navy">Update User</h1>
-			</c:if>
-			<c:if test="${form.id==0}">
-				<h1 style="color: navy">Add User</h1>
-			</c:if>
-			<H3>
+			<h1 style="color: navy">User Registration</h1>
+			<H3 align="center">
 				<c:if test="${not empty success}">
 					<font color="green">${success}</font>
 				</c:if>
@@ -65,7 +60,7 @@
 				</tr>
 				<tr>
 					<th></th>
-					<td><input type="submit" name="operation" value="save"></td>
+					<td><input type="submit" name="operation" value="signUp"></td>
 				</tr>
 			</table>
 		</div>

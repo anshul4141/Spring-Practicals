@@ -4,37 +4,37 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserForm {
 
-	protected Long id = null;
+	protected long id = 0;
 
-	@NotEmpty(message = "firstName is required")
-	private String firstName = null;
+	private Long[] ids;
 
-	@NotEmpty(message = "lastName is required")
-	private String lastName = null;
+	@NotEmpty(message = "first name is required")
+	private String firstName;
+
+	@NotEmpty(message = "last name is required")
+	private String lastName;
 
 	@NotEmpty(message = "login is required")
-	private String login = null;
+	private String login;
 
 	@NotEmpty(message = "password is required")
-	private String password = null;
+	private String password;
 
 	@NotEmpty(message = "dob is required")
 	private String dob;
 
 	@NotEmpty(message = "address is required")
-	private String address = null;
+	private String address;
 
 	private int pageNo;
 
-	public int getPageNo() {
-		return pageNo;
+	public long getId() {
+		return id;
 	}
 
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
+	public void setId(long id) {
+		this.id = id;
 	}
-
-	private Long[] ids;
 
 	public Long[] getIds() {
 		return ids;
@@ -42,14 +42,6 @@ public class UserForm {
 
 	public void setIds(Long[] ids) {
 		this.ids = ids;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -98,6 +90,14 @@ public class UserForm {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
 	}
 
 }

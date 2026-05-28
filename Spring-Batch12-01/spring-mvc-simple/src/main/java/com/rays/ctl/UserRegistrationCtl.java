@@ -1,7 +1,5 @@
 package com.rays.ctl;
 
-import java.text.SimpleDateFormat;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,43 +14,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserRegistrationForm;
 import com.rays.service.UserService;
+import com.rays.util.DataUtility;
 
 @Controller
-@RequestMapping(value = "register")
+@RequestMapping(value = "Register")
 public class UserRegistrationCtl {
 
 	@Autowired
-	UserService service;
+	public UserService service;
 
 	@GetMapping
 	public String display(@ModelAttribute("form") UserRegistrationForm form) {
-		return "UserRegistrationView"; // return prefix
+		return "UserRegistration";
 	}
 
 	@PostMapping
-	public String register(@ModelAttribute("form") @Valid UserRegistrationForm form, BindingResult bindingResult,
-			Model model) throws Exception {
+	public String submit(@ModelAttribute("form") @Valid UserRegistrationForm form, BindingResult bindingResult,
+			Model model) {
 
 		if (bindingResult.hasErrors()) {
-			return "UserRegistrationView";
+			return "UserRegistration";
 		}
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 		UserDTO dto = new UserDTO();
-
 		dto.setFirstName(form.getFirstName());
 		dto.setLastName(form.getLastName());
 		dto.setLogin(form.getLogin());
 		dto.setPassword(form.getPassword());
-		dto.setDob(sdf.parse(form.getDob()));
+		dto.setDob(DataUtility.stringToDate(form.getDob()));
 		dto.setAddress(form.getAddress());
 
 		service.add(dto);
-		model.addAttribute("msg", "user registration successfully");
 
-		return "UserRegistrationView";
+		model.addAttribute("success", "User Registered Successfully..!!");
 
+		return "UserRegistration";
 	}
 
 }

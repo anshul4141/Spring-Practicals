@@ -11,10 +11,11 @@ import com.rays.dao.UserDAO;
 import com.rays.dto.UserDTO;
 
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
-	UserDAO dao;
+	public UserDAO dao;
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) {
@@ -50,22 +51,18 @@ public class UserService {
 		return dto;
 	}
 
-	@Transactional(readOnly = true)
 	public UserDTO authenticate(String login, String password) {
 		UserDTO dto = dao.authenticate(login, password);
 		return dto;
 	}
 
-	@Transactional(readOnly = true)
 	public UserDTO findByLogin(String login) {
 		UserDTO dto = dao.findByLogin(login);
 		return dto;
 	}
 
-	@Transactional(readOnly = true)
 	public List search(UserDTO dto, int pageNo, int pageSize) {
 		List list = dao.search(dto, pageNo, pageSize);
 		return list;
 	}
-
 }
