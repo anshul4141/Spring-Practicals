@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +25,6 @@ import com.rays.dto.AttachmentDTO;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserForm;
 import com.rays.service.AttachmentService;
-import com.rays.service.RoleService;
 import com.rays.service.UserService;
 
 @RestController
@@ -94,16 +94,23 @@ public class UserCtl extends BaseCtl {
 		return res;
 	}
 
-	@PostMapping("search/{pageNo}")
+	@RequestMapping(value = "/search/{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
 	public ORSResponse search(@RequestBody UserForm form, @PathVariable int pageNo) {
+
 		ORSResponse res = new ORSResponse();
+
 		UserDTO dto = (UserDTO) form.getDto();
+
 		int pageSize = 5;
-		List list = userService.search(dto, pageNo, pageSize);
+
+		List<UserDTO> list = userService.search(dto, pageNo, pageSize);
+
 		if (list != null && list.size() > 0) {
 			res.setSuccess(true);
+			res.addData(list);
+
 		}
-		res.addData(list);
+
 		return res;
 	}
 
