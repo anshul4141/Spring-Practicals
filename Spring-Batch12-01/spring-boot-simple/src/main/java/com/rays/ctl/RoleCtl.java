@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rays.common.BaseCtl;
 import com.rays.common.ORSResponse;
 import com.rays.dto.RoleDTO;
 import com.rays.form.RoleForm;
+import com.rays.form.UserForm;
 import com.rays.service.RoleService;
 
 @RestController
@@ -105,5 +107,6 @@ public class RoleCtl extends BaseCtl {
 		return res;
 
 	}
+
 
 }
