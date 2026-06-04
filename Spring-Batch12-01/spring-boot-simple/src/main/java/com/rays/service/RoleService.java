@@ -1,5 +1,7 @@
 package com.rays.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -55,6 +57,11 @@ public class RoleService {
 
 		return dao.findByPk(id);
 
+	}
+
+	@Transactional(readOnly = true)
+	public List<RoleDTO> search(RoleDTO dto, int pageNo, int pageSize) {
+		return dao.search(dto, pageNo, pageSize);
 	}
 
 }

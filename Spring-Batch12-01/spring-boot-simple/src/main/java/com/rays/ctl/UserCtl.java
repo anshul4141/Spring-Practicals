@@ -18,6 +18,7 @@ import com.rays.common.BaseCtl;
 import com.rays.common.ORSResponse;
 import com.rays.dto.UserDTO;
 import com.rays.form.UserForm;
+import com.rays.service.RoleService;
 import com.rays.service.UserService;
 
 @RestController
@@ -26,6 +27,23 @@ public class UserCtl extends BaseCtl {
 
 	@Autowired
 	public UserService userService;
+
+	@Autowired
+	public RoleService roleService;
+
+	@GetMapping("preload")
+	public ORSResponse preload() {
+
+		ORSResponse res = new ORSResponse();
+
+		List roleList = roleService.search(null, 0, 0);
+
+		res.addResult("roleList", roleList);
+		res.setSuccess(true);
+
+		return res;
+
+	}
 
 	@PostMapping("save")
 	public ORSResponse save(@RequestBody @Valid UserForm form, BindingResult bindingResult) {

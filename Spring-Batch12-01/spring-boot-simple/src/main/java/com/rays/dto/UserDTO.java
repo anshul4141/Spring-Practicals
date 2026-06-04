@@ -89,4 +89,9 @@ public class UserDTO extends BaseDTO {
 		this.roleName = roleName;
 	}
 
+	@Override
+	public String getValue() {
+		return null;
+	}
+
 }
