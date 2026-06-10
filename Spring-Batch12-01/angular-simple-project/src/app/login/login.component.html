@@ -1,1 +1,25 @@
-<p>login works!</p>
+<div align="center">
+
+    <h1>Login</h1>
+    <h3>{{message}}</h3>
+    <form (submit)="signIn()">
+
+        <table>
+            <tr>
+                <th>Login</th>
+                <td><input type="text" name="login" [(ngModel)]="form.login" placeholder="enter your login id"></td>
+            </tr>
+            <tr>
+                <th>Passwrod</th>
+                <td><input type="text" name="password" [(ngModel)]="form.password" placeholder="enter your password">
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="signIn"></td>
+            </tr>
+        </table>
+
+    </form>
+
+</div>
