@@ -7,4 +7,17 @@ import { Component } from '@angular/core';
 })
 export class SignupComponent {
 
+  form: any = {
+    data: {},
+    successMessage: '',
+    errorMessage: '',
+    inputError: {},
+  }
+
+  signUp() {
+
+    console.log('form data ====> ', this.form.data)
+
+  }
+
 }
