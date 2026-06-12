@@ -19,6 +19,13 @@ public class UserService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) {
+
+		UserDTO existDto = dao.findByUniqueKey("loginId", dto.getLoginId());
+
+		if (existDto != null) {
+			throw new RuntimeException("login Id already exist");
+		}
+
 		long pk = dao.add(dto);
 		return pk;
 	}
