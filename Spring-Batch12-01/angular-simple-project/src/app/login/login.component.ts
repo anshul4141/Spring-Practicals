@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpServiceService } from '../http-service.service';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +9,36 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private httpService: HttpServiceService) { }
 
-  message: any = '';
+
+  endpoint: any = 'http://localhost:8080/Auth/login'
 
   form: any = {
-    data: {}
+    data: {},
+    errorMessage: '',
+    successMessage: '',
+    inputerror: {}
   }
 
   signIn() {
 
-    if (this.form.data.loginId == 'admin' && this.form.data.password == 'admin') {
-      this.message = 'user login successfully';
-    } else {
-      this.message = 'invalid login or password'
-    }
+    this.httpService.post(this.endpoint, this.form.data, (response: any) => {
+      if (response.success == false && response.result.inputerror) {
+        this.form.inputerror = response.result.inputerror;
+      }
+      if (response.success == false && response.result.message) {
+        this.form.errorMessage = response.result.message;
+      }
+      if (response.success == true) {
+
+        localStorage.setItem('firstName', response.result.data.firstName);
+        localStorage.setItem('roleName', response.result.data.roleName);
+        localStorage.setItem('id', response.result.data.id);
+
+        this.router.navigateByUrl('/welcome');
+      }
+    })
 
   }
 

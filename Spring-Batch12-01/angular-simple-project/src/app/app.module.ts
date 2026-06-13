@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpServiceService } from './http-service.service';
+import { UserComponent } from './user/user.component';
+import { UserListComponent } from './user/user-list.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HttpServiceService } from './http-service.service';
     NavbarComponent,
     FooterComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    UserComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

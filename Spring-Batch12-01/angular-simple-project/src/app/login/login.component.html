@@ -1,23 +1,28 @@
 <div align="center">
 
     <h1>Login</h1>
-    <h3>{{message}}</h3>
+    <h3 style="color: red;">{{form.errorMessage}}</h3>
+    <h3 style="color: green;">{{form.successMessage}}</h3>
     <form (submit)="signIn()">
 
         <table>
             <tr>
                 <th>Login</th>
-                <td><input type="text" name="login" [(ngModel)]="form.data.loginId" placeholder="enter your login id"></td>
+                <td><input type="text" name="login" [(ngModel)]="form.data.loginId" placeholder="enter your login id">
+                </td>
+                <td><span style="color: red;">{{form.inputerror.loginId}}</span></td>
             </tr>
             <tr>
                 <th>Passwrod</th>
-                <td><input type="text" name="password" [(ngModel)]="form.data.password" placeholder="enter your password">
+                <td><input type="text" name="password" [(ngModel)]="form.data.password"
+                        placeholder="enter your password">
                 </td>
+                <td><span style="color: red;">{{form.inputerror.password}}</span></td>
             </tr>
             <tr>
                 <th></th>
                 <td><input type="submit" value="signIn">
-                <button (click)="signUp()" >signUp</button>
+                    <button (click)="signUp()">signUp</button>
                 </td>
             </tr>
         </table>

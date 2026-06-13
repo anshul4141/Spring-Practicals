@@ -1,0 +1,63 @@
+<div align="center">
+
+    <h1>Add User</h1>
+    <h3 style="color: green;">{{form.successMessage}}</h3>
+    <h3 style="color: red;">{{form.errorMessage}}</h3>
+    <form (submit)="save()">
+
+        <table>
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName"
+                        placeholder="enter your firstName"></td>
+                <td><span style="color: red;">{{form.inputError.firstName}}</span></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" name="lastName" [(ngModel)]="form.data.lastName"
+                        placeholder="enter your lastName"></td>
+                <td><span style="color: red;">{{form.inputError.lastName}}</span></td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="enter your login id">
+                </td>
+                <td><span style="color: red;">{{form.inputError.loginId}}</span></td>
+            </tr>
+            <tr>
+                <th>Passwrod</th>
+                <td><input type="text" name="password" [(ngModel)]="form.data.password"
+                        placeholder="enter your password">
+                </td>
+                <td><span style="color: red;">{{form.inputError.password}}</span></td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td><select name="roleId" [(ngModel)]="form.data.roleId">
+                        <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Student</option>
+                        <option value="3">College</option>
+                        <option value="4">Faculty</option>
+                    </select>
+                </td>
+                <td><span style="color: red;">{{form.inputError.roleId}}</span></td>
+            </tr>
+            <tr>
+                <th>DOB</th>
+                <td><input type="date" name="dob" [(ngModel)]="form.data.dob">
+                </td>
+                <td><span style="color: red;">{{form.inputError.dob}}</span></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="save">
+                    <button (click)="reset()">Reset</button>
+                </td>
+
+            </tr>
+        </table>
+
+    </form>
+
+</div>
