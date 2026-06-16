@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpServiceService } from '../http-service.service';
 
 @Component({
@@ -9,8 +9,13 @@ import { HttpServiceService } from '../http-service.service';
 })
 export class LoginComponent {
 
-  constructor(private router: Router, private httpService: HttpServiceService) { }
-
+  constructor(private router: Router, private httpService: HttpServiceService, private activatedRoute: ActivatedRoute) {
+    activatedRoute.queryParams.subscribe(params => {
+      if (params['message']) {
+        this.form.successMessage = params['message'];
+      }
+    });
+  }
 
   endpoint: any = 'http://localhost:8080/Auth/login'
 

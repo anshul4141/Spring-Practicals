@@ -1,6 +1,7 @@
 <div align="center">
 
-    <h1>Add User</h1>
+    <h1 *ngIf="!form.data.id">Add User</h1>
+    <h1 *ngIf="form.data.id">Update User</h1>
     <h3 style="color: green;">{{form.successMessage}}</h3>
     <h3 style="color: red;">{{form.errorMessage}}</h3>
     <form (submit)="save()">
@@ -51,10 +52,12 @@
             </tr>
             <tr>
                 <th></th>
-                <td><input type="submit" value="save">
+                <td *ngIf="!form.data.id"><input type="submit" value="save">
                     <button (click)="reset()">Reset</button>
                 </td>
-
+                <td *ngIf="form.data.id"><input type="submit" value="update">
+                    <button (click)="reset()">Reset</button>
+                </td>
             </tr>
         </table>
 
