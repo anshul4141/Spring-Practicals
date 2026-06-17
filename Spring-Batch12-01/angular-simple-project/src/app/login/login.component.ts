@@ -11,6 +11,9 @@ export class LoginComponent {
 
   constructor(private router: Router, private httpService: HttpServiceService, private activatedRoute: ActivatedRoute) {
     activatedRoute.queryParams.subscribe(params => {
+      if (params['errorMessage']) {
+        this.form.errorMessage = params['errorMessage'];
+      }
       if (params['message']) {
         this.form.successMessage = params['message'];
       }

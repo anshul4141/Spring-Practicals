@@ -25,9 +25,13 @@ export class UserComponent implements OnInit {
     successMessage: '',
     errorMessage: '',
     inputError: {},
+    preload: []
   }
 
   ngOnInit(): void {
+
+    this.preload();
+
     if (this.form.data.id) {
       this.display();
     }
@@ -35,6 +39,15 @@ export class UserComponent implements OnInit {
 
   reset() {
     location.reload();
+  }
+
+  preload() {
+    this.httpService.get('http://localhost:8080/User/preload', (response: any) => {
+      console.log('response ===> ', response)
+      if (response.success == true && response.result.roleList) {
+        this.form.preload = response.result.roleList;
+      }
+    });
   }
 
   display() {
