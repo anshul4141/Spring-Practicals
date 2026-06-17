@@ -28,7 +28,9 @@ export class HttpServiceService {
   handleError(error: any) {
     if (error.status == 401) {
       localStorage.clear();
-      this.router.navigateByUrl('/login?errorMessage=session expired, please login again');
+      this.router.navigateByUrl(
+        '/login?errorMessage=session expired, please login again'
+      );
     }
   }
 
