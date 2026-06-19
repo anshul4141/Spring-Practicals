@@ -34,8 +34,8 @@
             <tr *ngFor="let user of form.list" align="center">
                 <td><input type="checkbox" (click)="onClickCheckbox(user.id)"></td>
                 <td>{{ user.id }}</td>
-                <td><img src="http://localhost:8080/User/profilePic/{{ user.id }}" alt="User Image" width="50"
-                        height="50"></td>
+                <td><img src="http://localhost:8080/User/profilePic/{{ user.id }}" alt="User Image" width="70"
+                        height="60"></td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.roleName }}</td>
