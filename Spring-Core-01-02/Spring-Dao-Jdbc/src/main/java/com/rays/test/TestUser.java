@@ -1,5 +1,8 @@
 package com.rays.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,7 +23,34 @@ public class TestUser {
 
 		TestUser test = context.getBean("testUser", TestUser.class);
 
-		test.testAdd();
+//		test.testAdd();
+//		test.testFindByPk();
+		test.testSearch();
+
+	}
+
+	private void testSearch() {
+
+		UserDTO d = new UserDTO();
+		
+		d.setFirstName("H");
+		
+		List<UserDTO> list = service.search(d, 1, 2);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			UserDTO dto = it.next();
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+
+		}
+
+	}
+
+	private void testFindByPk() {
+
+		UserDTO dto = service.authenticate("", "");
 
 	}
 
