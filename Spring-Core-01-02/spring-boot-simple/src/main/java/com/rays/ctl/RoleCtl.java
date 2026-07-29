@@ -1,6 +1,9 @@
 package com.rays.ctl;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,16 +18,22 @@ import com.rays.service.RoleService;
 
 @RestController
 @RequestMapping(value = "Role")
-public class RoleCtl {
+public class RoleCtl extends BaseCtl {
 
 	@Autowired
 	RoleService service;
 
 	// http://localhost:8080/Role/save
 	@PostMapping("save")
-	public ORSResponse save(@RequestBody RoleForm form) {
+	public ORSResponse save(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 
 		ORSResponse res = new ORSResponse();
+
+		res = validate(bindingResult);
+
+		if (res.isSuccess() == false) {
+			return res;
+		}
 
 		RoleDTO dto = (RoleDTO) form.getDto();
 
@@ -39,9 +48,15 @@ public class RoleCtl {
 
 	// http://localhost:8080/Role/update
 	@PostMapping("update")
-	public ORSResponse update(@RequestBody RoleForm form) {
+	public ORSResponse update(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 
 		ORSResponse res = new ORSResponse();
+		
+		res = validate(bindingResult);
+
+		if (res.isSuccess() == false) {
+			return res;
+		}
 
 		RoleDTO dto = (RoleDTO) form.getDto();
 
