@@ -1,5 +1,7 @@
 package com.rays.ctl;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rays.common.ORSResponse;
@@ -51,7 +54,7 @@ public class RoleCtl extends BaseCtl {
 	public ORSResponse update(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 
 		ORSResponse res = new ORSResponse();
-		
+
 		res = validate(bindingResult);
 
 		if (res.isSuccess() == false) {
@@ -98,6 +101,30 @@ public class RoleCtl extends BaseCtl {
 		}
 
 		return res;
+	}
+
+	// http://localhost:8080/Role/search/pageNo
+
+	@RequestMapping(method = { RequestMethod.GET, RequestMethod.POST }, value = "/search/{pageNo}")
+	public ORSResponse search(@RequestBody RoleForm form, @PathVariable int pageNo) {
+
+		ORSResponse res = new ORSResponse();
+
+		int pageSize = 5;
+
+		RoleDTO dto = (RoleDTO) form.getDto();
+
+		List<RoleDTO> list = service.search(dto, pageNo, pageSize);
+
+		if (list != null && list.size() > 0) {
+			res.setSuccess(true);
+			res.addData(list);
+		} else {
+			res.addMessage("record not found");
+		}
+
+		return res;
+
 	}
 
 }

@@ -23,9 +23,8 @@ public class BaseCtl {
 
 			List<FieldError> list = bindingResult.getFieldErrors();
 
-			list.forEach(e -> {
-				errors.put(e.getField(), e.getDefaultMessage());
-			});
+			list.forEach(e -> errors.put(e.getField(), e.getDefaultMessage()));
+
 			res.addInputError(errors);
 		}
 		return res;
