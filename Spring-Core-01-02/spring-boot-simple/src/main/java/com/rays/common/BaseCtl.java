@@ -7,8 +7,6 @@ import java.util.Map;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import com.rays.common.ORSResponse;
-
 public class BaseCtl {
 
 	public ORSResponse validate(BindingResult bindingResult) {

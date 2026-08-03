@@ -20,11 +20,10 @@ public class RoleService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void save(RoleDTO dto) {
 
-		if (dto.getId() != null && dto.getId() > 0) {
+		if (dto.getId() != null && dto.getId() > 0)
 			dao.update(dto);
-		} else {
+		else
 			dao.add(dto);
-		}
 
 	}
 

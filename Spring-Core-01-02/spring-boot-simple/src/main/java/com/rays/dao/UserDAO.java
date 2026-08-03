@@ -43,7 +43,6 @@ public class UserDAO {
 	}
 
 	public void delete(UserDTO dto) {
-
 		entityManager.remove(dto);
 	}
 

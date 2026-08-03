@@ -53,17 +53,12 @@ public class RoleDAO {
 
 	public List<RoleDTO> search(RoleDTO dto, int pageNo, int pageSize) {
 
-		// to create query
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 
-		// to create search query of given .class
-		// select * from RoleDTO where 1 = 1;
 		CriteriaQuery<RoleDTO> cq = builder.createQuery(RoleDTO.class);
 
-		// to get attribute of given .class
 		Root<RoleDTO> root = cq.from(RoleDTO.class);
 
-		// create Object of predicate to hold search filters
 		List<Predicate> predicateList = new ArrayList<Predicate>();
 
 		if (dto != null) {

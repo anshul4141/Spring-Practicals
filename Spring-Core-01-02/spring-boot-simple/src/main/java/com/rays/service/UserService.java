@@ -47,11 +47,10 @@ public class UserService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long save(UserDTO dto) {
 		Long id = dto.getId();
-		if (id != null && id > 0) {
+		if (id != null && id > 0)
 			update(dto);
-		} else {
+		else
 			id = add(dto);
-		}
 		return id;
 	}
 
@@ -66,11 +65,10 @@ public class UserService {
 
 		UserDTO dto = dao.findByUniqueKey("loginId", loginId);
 
-		if (dto != null) {
-			if (dto.getPassword().equals(password)) {
+		if (dto != null)
+			if (dto.getPassword().equals(password))
 				return dto;
-			}
-		}
+
 		return null;
 	}
 }
