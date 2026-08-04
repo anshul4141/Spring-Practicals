@@ -33,17 +33,24 @@ public class UserCtl extends BaseCtl {
 			return res;
 		}
 		UserDTO dto = (UserDTO) form.getDto();
-		if (dto.getId() != null && dto.getId() > 0) {
-			userService.update(dto);
-			res.addData(dto.getId());
-			res.addMessage("Data Updated Successfully..!!");
-			res.setSuccess(true);
-		} else {
-			long pk = userService.add(dto);
-			res.addData(pk);
-			res.addMessage("Data added Successfully..!!");
-			res.setSuccess(true);
+
+		try {
+			if (dto.getId() != null && dto.getId() > 0) {
+				userService.update(dto);
+				res.addData(dto);
+				res.addMessage("Data Updated Successfully..!!");
+				res.setSuccess(true);
+			} else {
+				userService.add(dto);
+				res.addData(dto);
+				res.addMessage("Data added Successfully..!!");
+				res.setSuccess(true);
+			}
+		} catch (Exception e) {
+			res.addMessage(e.getMessage());
+			res.setSuccess(false);
 		}
+
 		return res;
 	}
 
@@ -75,7 +82,7 @@ public class UserCtl extends BaseCtl {
 		ORSResponse res = new ORSResponse();
 		UserDTO dto = (UserDTO) form.getDto();
 		int pageSize = 5;
-		List list = userService.search(dto, pageNo, pageSize);
+		List<UserDTO> list = userService.search(dto, pageNo, pageSize);
 		if (list != null && list.size() > 0) {
 			res.setSuccess(true);
 			res.addData(list);

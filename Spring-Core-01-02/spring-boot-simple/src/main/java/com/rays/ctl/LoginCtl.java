@@ -56,14 +56,20 @@ public class LoginCtl extends BaseCtl {
 			return res;
 		}
 
-		UserDTO dto = new UserDTO();
+		try {
+			UserDTO dto = new UserDTO();
 
-		dto = (UserDTO) form.getDto();
+			dto = (UserDTO) form.getDto();
 
-		long pk = service.add(dto);
+			long pk = service.add(dto);
 
-		res.addData(pk);
-		res.addMessage("user Registered Successfully..!!");
+			res.addData(dto);
+			res.addMessage("user Registered Successfully..!!");
+		} catch (Exception e) {
+			res.addMessage(e.getMessage());
+			res.setSuccess(false);
+		}
+
 		return res;
 	}
 

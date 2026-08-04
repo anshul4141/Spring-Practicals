@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.rays.dao.UserDAO;
 import com.rays.dto.UserDTO;
+import com.rays.exception.DuplicateRecordException;
 
 @Service
 @Transactional
@@ -17,14 +18,37 @@ public class UserService {
 	@Autowired
 	public UserDAO dao;
 
+	@Transactional(readOnly = true)
+	public UserDTO findByLogin(String loginId) {
+		UserDTO dto = dao.findByUniqueKey("loginId", loginId);
+
+		if (dto != null) {
+			return dto;
+		}
+
+		return null;
+	}
+
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(UserDTO dto) {
+
+		UserDTO existDto = findByLogin(dto.getLoginId());
+
+		if (existDto != null) {
+			throw new DuplicateRecordException("loginId already exist");
+		}
 		long pk = dao.add(dto);
 		return pk;
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void update(UserDTO dto) {
+
+		UserDTO existDto = findByLogin(dto.getLoginId());
+
+		if (existDto != null && dto.getId() != existDto.getId()) {
+			throw new DuplicateRecordException("loginId already exist");
+		}
 		dao.update(dto);
 	}
 
@@ -63,7 +87,7 @@ public class UserService {
 	@Transactional(readOnly = true)
 	public UserDTO authenticate(String loginId, String password) {
 
-		UserDTO dto = dao.findByUniqueKey("loginId", loginId);
+		UserDTO dto = findByLogin(loginId);
 
 		if (dto != null)
 			if (dto.getPassword().equals(password))
