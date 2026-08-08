@@ -11,6 +11,8 @@ export class LoginComponent {
 
   form: any = {
 
+    data: {},
+
     errorMsg: '',
     successMsg: '',
 
@@ -29,6 +31,10 @@ export class LoginComponent {
       this.form.errorMsg = 'Invalid login or password';
     }
 
+  }
+
+  signUp() {
+    this.router.navigateByUrl('/signup');
   }
 
 }

@@ -10,18 +10,21 @@
 
             <tr>
                 <th>Login</th>
-                <td><input type="text" name="login" [(ngModel)]="form.login" placeholder="Enter your login"></td>
+                <td><input type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="Enter your emial">
+                </td>
             </tr>
 
             <tr>
                 <th>Password</th>
-                <td><input type="password" name="password" [(ngModel)]="form.password"
+                <td><input type="password" name="password" [(ngModel)]="form.data.password"
                         placeholder="Enter your password"></td>
             </tr>
 
             <tr>
                 <th></th>
-                <td><input type="submit" value="signin"></td>
+                <td><input type="submit" value="signin"> &nbsp;
+                    <button (click)="signUp()">signup</button>
+                </td>
             </tr>
 
         </table>
