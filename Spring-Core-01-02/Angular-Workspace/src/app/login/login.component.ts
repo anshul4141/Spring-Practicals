@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpServiceService } from '../http-service.service';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +8,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private httpService: HttpServiceService) { }
+
+  endpoint = 'http://localhost:8080/Auth/login';
 
   form: any = {
 
@@ -20,16 +23,32 @@ export class LoginComponent {
 
   signIn() {
 
-    console.log(this.form.login);
-    console.log(this.form.password);
+    this.form.errorMsg = ''
+    this.form.successMsg = ''
+    this.form.inputerror = {}
 
-    if (this.form.login == 'admin' && this.form.password == 'admin') {
+    this.httpService.post(this.endpoint, this.form.data, (response: any) => {
 
-      this.router.navigateByUrl('/welcome');
+      console.log("response: ", response);
 
-    } else {
-      this.form.errorMsg = 'Invalid login or password';
-    }
+      if (response.success == false && response.result.inputerror) {
+        this.form.inputerror = response.result.inputerror;
+        return;
+      }
+
+      if (response.success == false && response.result.message) {
+        this.form.errorMsg = response.result.message;
+        return;
+      }
+
+      if (response.success == true) {
+        localStorage.setItem('firstName', response.result.data.firstName);
+        localStorage.setItem('roleName', response.result.data.roleName)
+        localStorage.setItem('id', response.result.data.id);
+        this.router.navigateByUrl('/welcome')
+      }
+
+    });
 
   }
 

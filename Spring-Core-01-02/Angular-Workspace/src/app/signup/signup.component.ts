@@ -20,24 +20,30 @@ export class SignupComponent {
   }
 
   signUp() {
-    let _self = this;
-    this.httpService.post(this.endpoint, this.form.data, function (response: any) {
+
+    this.form.errorMsg = ''
+    this.form.successMsg = ''
+    this.form.inputerror = {}
+
+    this.httpService.post(this.endpoint, this.form.data, (response: any) => {
+
       console.log("response: ", response);
 
       if (response.success == false && response.result.inputerror) {
-        _self.form.inputerror = response.result.inputerror;
+        this.form.inputerror = response.result.inputerror;
+        return;
       }
 
       if (response.success == false && response.result.message) {
-        _self.form.errorMsg = response.result.message;
+        this.form.errorMsg = response.result.message;
+        return;
       }
 
       if (response.success == true) {
-        _self.form.successMsg = response.result.message;
+        this.form.successMsg = response.result.message;
       }
 
-    })
-
+    });
 
   }
 
