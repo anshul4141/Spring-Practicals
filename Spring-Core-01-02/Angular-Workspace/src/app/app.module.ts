@@ -11,6 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RoleComponent } from './role/role.component';
+import { RoleListComponent } from './role/role-list.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RoleComponent } from './role/role.component';
     WelcomeComponent,
     LoginComponent,
     SignupComponent,
-    RoleComponent
+    RoleComponent,
+    RoleListComponent
   ],
   imports: [
     BrowserModule,

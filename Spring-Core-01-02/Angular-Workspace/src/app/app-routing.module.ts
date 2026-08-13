@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RoleComponent } from './role/role.component';
+import { RoleListComponent } from './role/role-list.component';
 
 const routes: Routes = [
 
@@ -24,10 +25,15 @@ const routes: Routes = [
     path: 'signup',
     component: SignupComponent
   },
-   {
+  {
     path: 'role',
     component: RoleComponent
+  },
+  {
+    path: 'roleList',
+    component: RoleListComponent
   }
+
 
 
 ];
