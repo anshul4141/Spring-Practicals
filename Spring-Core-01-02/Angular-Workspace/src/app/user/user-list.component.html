@@ -1,0 +1,52 @@
+<div align="center">
+
+    <h1>User List</h1>
+
+    <table>
+        <tr>
+            <td>
+                <input type="text" name="firstName" [(ngModel)]="form.searchParam.firstName"
+                    placeholder="search by firstName">
+            </td>
+            <td>
+                <button (click)="search()">search</button>
+            </td>
+        </tr>
+    </table>
+
+    <table border="1px" width="100%">
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>lastName</th>
+            <th>Role</th>
+            <th>Login</th>
+            <th>DOB</th>
+            <th>Edit</th>
+        </tr>
+
+        <tr align="center" *ngFor="let user of form.list">
+            <td>{{user.id}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.roleName}}</td>
+            <td>{{user.loginId}}</td>
+            <td>{{user.dob | date: 'yyyy-MM-dd'}}</td>
+            <td> <a (click)="edit( '/user/' +  user.id)" style="color: blue;">edit</a></td>
+        </tr>
+
+    </table>
+</div>
+
+<table width="100%">
+    <tr>
+
+        <td>
+            <button [disabled]="form.pageNo == 0" (click)="previous()">previous</button>
+        </td>
+        <td align="right">
+            <button [disabled]="form.list.length < 5" (click)="next()">next</button>
+        </td>
+
+    </tr>
+</table>

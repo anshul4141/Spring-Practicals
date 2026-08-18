@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RoleComponent } from './role/role.component';
 import { RoleListComponent } from './role/role-list.component';
+import { UserComponent } from './user/user.component';
+import { UserListComponent } from './user/user-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { RoleListComponent } from './role/role-list.component';
     LoginComponent,
     SignupComponent,
     RoleComponent,
-    RoleListComponent
+    RoleListComponent,
+    UserComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
