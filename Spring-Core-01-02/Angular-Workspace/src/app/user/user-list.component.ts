@@ -20,7 +20,8 @@ export class UserListComponent implements OnInit {
     errorMessage: '',
     successMessage: '',
     pageNo: 0,
-    searchParam: {}
+    searchParam: {},
+    deleteParam: {}
   }
 
   next() {
@@ -31,6 +32,19 @@ export class UserListComponent implements OnInit {
   previous() {
     this.form.pageNo--;
     this.search();
+  }
+
+  onClickChecbox(id: any) {
+    this.form.deleteParam.id = id;
+  }
+
+  delete() {
+    this.httpService.get('http://localhost:8080/User/delete/' + this.form.deleteParam.id, (response: any) => {
+      if (response.success == true) {
+        this.form.successMessage = response.result.message;
+      }
+      this.search();
+    })
   }
 
   search() {

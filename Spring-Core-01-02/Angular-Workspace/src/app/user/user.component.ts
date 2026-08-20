@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -6,13 +6,18 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-user',
   templateUrl: './user.component.html'
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
 
   form: any = {
     data: {},
     errorMsg: '',
     successMsg: '',
-    inputerror: {}
+    inputerror: {},
+    roleList: []
+  }
+
+  ngOnInit(): void {
+    this.preload();
   }
 
   constructor(private httpService: HttpServiceService, private activatedRoute: ActivatedRoute) {
@@ -29,6 +34,12 @@ export class UserComponent {
     this.httpService.get('http://localhost:8080/User/get/' + this.form.data.id, (response: any) => {
       this.form.data = response.result.data;
       this.form.data.dob = response.result.data.dob.substring(0, 10);
+    })
+  }
+
+  preload() {
+    this.httpService.get('http://localhost:8080/User/preload', (response: any) => {
+      this.form.roleList = response.result.roleList;
     })
   }
 

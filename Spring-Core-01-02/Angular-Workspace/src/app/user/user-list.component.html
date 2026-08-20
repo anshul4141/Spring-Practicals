@@ -2,6 +2,8 @@
 
     <h1>User List</h1>
 
+    <h3 style="color: green;">{{form.successMessage}}</h3>
+
     <table>
         <tr>
             <td>
@@ -16,6 +18,7 @@
 
     <table border="1px" width="100%">
         <tr>
+            <th>Delete</th>
             <th>Id</th>
             <th>FirstName</th>
             <th>lastName</th>
@@ -26,6 +29,7 @@
         </tr>
 
         <tr align="center" *ngFor="let user of form.list">
+            <td><input type="checkbox" (click)="onClickChecbox(user.id)"></td>
             <td>{{user.id}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
@@ -43,6 +47,9 @@
 
         <td>
             <button [disabled]="form.pageNo == 0" (click)="previous()">previous</button>
+        </td>
+        <td align="center">
+            <button [disabled]="!form.deleteParam.id" (click)="delete()">delete</button>
         </td>
         <td align="right">
             <button [disabled]="form.list.length < 5" (click)="next()">next</button>

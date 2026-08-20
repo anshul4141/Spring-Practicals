@@ -1,7 +1,7 @@
 <div align="center">
 
-    <h1 *ngIf="form.data.id" >Update User</h1>
-    <h1 *ngIf="!form.data.id" >Add User</h1>
+    <h1 *ngIf="form.data.id">Update User</h1>
+    <h1 *ngIf="!form.data.id">Add User</h1>
     <h3 style="color: green">{{form.successMsg}}</h3>
     <h3 style="color:red">{{form.errorMsg}}</h3>
     <form (submit)="save()">
@@ -27,10 +27,18 @@
                 <th>Role</th>
                 <td><select name="roleId" [(ngModel)]="form.data.roleId">
                         <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
-                        <option value="1">Admin</option>
-                        <option value="2">Student</option>
-                        <option value="3">College</option>
-                        <option value="4">Faculty</option>
+                        <option *ngFor="let role of form.roleList" value="{{role.key}}">{{role.value}}</option>
+                    </select>
+                </td>
+                <td style="color: red;">{{form.inputerror.roleId}}</td>
+            </tr>
+             <tr>
+                <th>Gender</th>
+                <td><select name="gender" [(ngModel)]="form.data.gender">
+                        <option [ngValue]="" value="undefined">{{'--------Select Role---------' }}</option>
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                        <option value="other">other</option>
                     </select>
                 </td>
                 <td style="color: red;">{{form.inputerror.roleId}}</td>
