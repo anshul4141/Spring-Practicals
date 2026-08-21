@@ -14,6 +14,9 @@ export class LoginComponent {
       if (params['message']) {
         this.form.successMsg = params['message'];
       }
+      if (params['errorMsg']) {
+        this.form.errorMsg = params['errorMsg'];
+      }
     });
 
   }
