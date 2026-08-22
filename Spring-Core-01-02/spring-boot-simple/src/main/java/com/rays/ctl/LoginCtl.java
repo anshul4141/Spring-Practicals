@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rays.common.BaseCtl;
 import com.rays.common.ORSResponse;
 import com.rays.dto.UserDTO;
+import com.rays.exception.DuplicateRecordException;
 import com.rays.form.LoginForm;
 import com.rays.form.UserRegistrationForm;
 import com.rays.service.UserService;
@@ -38,7 +39,7 @@ public class LoginCtl extends BaseCtl {
 		if (dto != null) {
 			session.setAttribute("user", dto);
 			res.addData(dto);
-			res.addMessage("user login successfully..!!");
+//			res.addMessage("user login successfully..!!");
 			res.setSuccess(true);
 		} else {
 			res.addMessage("Login ID & Password is invalid..!!");
@@ -65,7 +66,7 @@ public class LoginCtl extends BaseCtl {
 
 			res.addData(dto);
 			res.addMessage("user Registered Successfully..!!");
-		} catch (Exception e) {
+		} catch (DuplicateRecordException e) {
 			res.addMessage(e.getMessage());
 			res.setSuccess(false);
 		}
