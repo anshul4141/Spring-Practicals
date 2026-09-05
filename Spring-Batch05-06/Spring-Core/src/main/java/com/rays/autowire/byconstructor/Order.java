@@ -5,21 +5,26 @@ public class Order {
 	private Inventry inventry;
 	private Payment payment;
 
-	public Inventry getInventry() {
-		return inventry;
-	}
-
-	public void setInventry(Inventry inventry) {
+	public Order(Inventry inventry, Payment payment) {
 		this.inventry = inventry;
-	}
-
-	public Payment getPayment() {
-		return payment;
-	}
-
-	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
+
+//	public Inventry getInventry() {
+//		return inventry;
+//	}
+//
+//	public void setInventry(Inventry inventry) {
+//		this.inventry = inventry;
+//	}
+//
+//	public Payment getPayment() {
+//		return payment;
+//	}
+//
+//	public void setPayment(Payment payment) {
+//		this.payment = payment;
+//	}
 
 	public void makeOrder(int book) {
 
