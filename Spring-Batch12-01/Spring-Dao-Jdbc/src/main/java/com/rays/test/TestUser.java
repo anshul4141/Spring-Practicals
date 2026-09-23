@@ -21,7 +21,23 @@ public class TestUser {
 		TestUser test = context.getBean("testUser", TestUser.class);
 
 //		test.testAdd();
-		test.testUpdate();
+//		test.testUpdate();
+//		test.testFindPk();
+		test.testFindByLogin();
+		test.testAuthenticate();
+		test.testSearch();
+
+	}
+
+	private void testFindPk() {
+
+		UserDTO dto = service.findByPk(1);
+
+		System.out.println(dto.getId());
+		System.out.println(dto.getFirstName());
+		System.out.println(dto.getLastName());
+		System.out.println(dto.getLogin());
+		System.out.println(dto.getPassword());
 
 	}
 
@@ -40,7 +56,7 @@ public class TestUser {
 		System.out.println("data inserted successfully at id: " + id);
 
 	}
-	
+
 	private void testUpdate() {
 
 		UserDTO dto = new UserDTO();

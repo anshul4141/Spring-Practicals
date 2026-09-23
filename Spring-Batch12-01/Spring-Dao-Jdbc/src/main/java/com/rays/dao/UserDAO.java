@@ -1,5 +1,8 @@
 package com.rays.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,66 @@ public class UserDAO {
 		int i = jdbcTemplate.update(sql, id);
 
 		System.out.println("record deleted successfully: " + i);
+	}
+
+	public UserDTO findByPk(int id) {
+
+		String sql = "select * from st_user where id = ?";
+
+		Object[] param = { id };
+
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+
+		return dto;
+
+	}
+
+	public UserDTO findByLogin(String login) {
+
+		String sql = "select * from st_user where login = ?";
+
+		Object[] param = { login };
+
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+
+		return dto;
+
+	}
+
+	public UserDTO authenticate(String login, String password) {
+
+		String sql = "select * from st_user where login = ? and password = ?";
+
+		Object[] param = { login, password };
+
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+
+		return dto;
+
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+
+		List<UserDTO> list = new ArrayList<UserDTO>();
+		StringBuffer sql = new StringBuffer("select * from st_user where 1=1");
+
+		if (dto != null) {
+			if (dto.getId() > 0) {
+				sql.append(" and id = " + dto.getId());
+			}
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				sql.append(" and firstName like '" + dto.getFirstName() + "%'");
+			}
+		}
+
+		if (pageSize > 0) {
+			pageNo = (pageNo - 1) * pageSize;
+			sql.append(" limit " + pageNo + ", " + pageSize);
+		}
+
+		list = jdbcTemplate.query(sql.toString(), new UserMapper());
+
+		return list;
 	}
 
 }
