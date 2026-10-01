@@ -1,5 +1,8 @@
 package com.rays.test;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -21,11 +24,11 @@ public class TestUser {
 		TestUser test = context.getBean("testUser", TestUser.class);
 
 //		test.testAdd();
-		test.testUpdate();
+//		test.testUpdate();
 //		test.testFindPk();
 //		test.testFindByLogin();
 //		test.testAuthenticate();
-//		test.testSearch();
+		test.testSearch();
 
 	}
 
@@ -65,6 +68,37 @@ public class TestUser {
 		dto.setPassword("pass123");
 
 		service.save(dto);
+
+	}
+
+	private void testFindByLogin() {
+
+		UserDTO dto = new UserDTO();
+
+		dto = service.findByLogin("harshit@gmail.com");
+
+		System.out.println(dto.getFirstName());
+		System.out.println(dto.getLastName());
+		System.out.println(dto.getLogin());
+		System.out.println(dto.getLastName());
+
+	}
+
+	public void testSearch() {
+
+		UserDTO dto = new UserDTO();
+
+		List<UserDTO> list = service.search(dto, 1, 5);
+
+		Iterator<UserDTO> it = list.iterator();
+
+		while (it.hasNext()) {
+			dto = it.next();
+			System.out.println(dto.getFirstName());
+			System.out.println(dto.getLastName());
+			System.out.println(dto.getLogin());
+			System.out.println(dto.getLastName());
+		}
 
 	}
 
