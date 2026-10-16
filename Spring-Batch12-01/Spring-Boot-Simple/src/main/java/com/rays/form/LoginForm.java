@@ -1,12 +1,17 @@
 package com.rays.form;
 
+import javax.validation.constraints.NotNull;
+
 import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.UserDTO;
 
 public class LoginForm extends BaseForm {
 
+	@NotNull(message = "login is required")
 	private String login;
+
+	@NotNull(message = "password is required")
 	private String password;
 
 	public String getLogin() {

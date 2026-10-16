@@ -1,14 +1,25 @@
 package com.rays.form;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.UserDTO;
 
 public class UserRegistrationForm extends BaseForm {
 
+	@NotNull(message = "firstName is required")
 	private String firstName;
+
+	@NotNull(message = "lastName is required")
 	private String lastName;
+
+	@NotNull(message = "login is required")
+	@Email(message = "login id is not in format")
 	private String login;
+
+	@NotNull(message = "password is required")
 	private String password;
 
 	public String getFirstName() {
