@@ -1,5 +1,7 @@
 package com.rays.dao;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,11 @@ public class UserDAO {
 
 	@Autowired
 	public UserDAO(DataSource dataSource) {
+
 		this.dataSource = dataSource;
+
 		jdbcTemplate = new JdbcTemplate(dataSource);
+
 	}
 
 	public int nextPk() {
@@ -29,6 +34,7 @@ public class UserDAO {
 		pk = jdbcTemplate.queryForObject(sql, Integer.class);
 
 		return pk + 1;
+
 	}
 
 	public int add(UserDTO dto) {
@@ -49,15 +55,76 @@ public class UserDAO {
 				dto.getId());
 
 		System.out.println("user update successfully: " + i);
+
 	}
 
 	public void delete(int id) {
 
-		String sql = "delete st_user where id = ?";
+		String sql = "delete from st_user where id = ?";
 
 		int i = jdbcTemplate.update(sql, id);
 
 		System.out.println("user deleted successfully: " + i);
+
+	}
+
+	public UserDTO findByPk(int id) {
+
+		String sql = "select * from st_user where id = ?";
+
+		Object[] param = { id };
+
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+
+		return dto;
+
+	}
+
+	public UserDTO findByLogin(String login) {
+
+		String sql = "select * from st_user where login = ?";
+
+		Object[] param = { login };
+
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+
+		return dto;
+
+	}
+
+	public UserDTO authenticate(String login, String password) {
+
+		String sql = "select * from st_user where login = ? and password = ?";
+
+		Object[] param = { login, password };
+
+		UserDTO dto = jdbcTemplate.queryForObject(sql, param, new UserMapper());
+
+		return dto;
+
+	}
+
+	public List<UserDTO> search(UserDTO dto, int pageNo, int pageSize) {
+
+		StringBuffer sql = new StringBuffer("select * from st_user where 1 = 1");
+
+		if (dto != null) {
+			if (dto.getFirstName() != null && dto.getFirstName().length() > 0) {
+				sql.append(" and first_name like '" + dto.getFirstName() + "%'");
+			}
+		}
+
+		if (pageSize > 0) {
+			int index = (pageNo - 1) * pageSize;
+			sql.append(" limit " + index + ", " + pageSize);
+		}
+
+		System.out.println("sql ====> " + sql.toString());
+
+		List<UserDTO> list = jdbcTemplate.query(sql.toString(), new UserMapper());
+
+		return list;
+
 	}
 
 }

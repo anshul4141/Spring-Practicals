@@ -20,14 +20,14 @@ public class TestUser {
 
 		TestUser test = context.getBean("test", TestUser.class);
 
-//		test.testAdd();
+		test.testAdd();
 
 	}
 
 	private void testAdd() {
 
 		UserDTO dto = new UserDTO();
-		dto.setId(1);
+		dto.setId(2);
 		dto.setFirstName("Ram");
 		dto.setLastName("Sharma");
 		dto.setLogin("ram@gmail.com");
