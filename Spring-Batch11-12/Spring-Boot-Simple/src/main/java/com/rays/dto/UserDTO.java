@@ -1,14 +1,31 @@
 package com.rays.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.rays.common.BaseDTO;
 
+@Entity
+@Table(name = "ST_USER")
 public class UserDTO extends BaseDTO {
 
+	@Column(name = "FIRST_NAME")
 	private String firstName;
+
+	@Column(name = "LAST_NAME")
 	private String lastName;
+
+	@Column(name = "LOGIN")
 	private String login;
+
+	@Column(name = "PASSWORD")
 	private String password;
+
+	@Column(name = "ROLE_ID")
 	private Long roleId;
+
+	@Column(name = "ROLE_NAME")
 	private String roleName;
 
 	public String getFirstName() {

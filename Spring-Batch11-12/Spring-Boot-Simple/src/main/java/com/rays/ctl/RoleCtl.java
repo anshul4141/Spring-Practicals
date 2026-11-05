@@ -36,14 +36,19 @@ public class RoleCtl extends BaseCtl {
 
 		RoleDTO dto = (RoleDTO) form.getDto();
 
-		if (dto.getId() != null && dto.getId() > 0) {
-			service.update(dto);
-			res.addMessage("role updated successfully");
-			res.addData(dto);
-		} else {
-			service.add(dto);
-			res.addMessage("role added successfully");
-			res.addData(dto);
+		try {
+			if (dto.getId() != null && dto.getId() > 0) {
+				service.update(dto);
+				res.addMessage("role updated successfully");
+				res.addData(dto);
+			} else {
+				service.add(dto);
+				res.addMessage("role added successfully");
+				res.addData(dto);
+			}
+		} catch (Exception e) {
+			res.setSuccess(false);
+			res.addMessage(e.getMessage());
 		}
 
 		return res;

@@ -17,6 +17,13 @@ public class RoleService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public long add(RoleDTO dto) {
+
+		RoleDTO existDto = findByName(dto.getName());
+
+		if (existDto != null) {
+			throw new RuntimeException("role name is already exist");
+		}
+
 		return dao.add(dto);
 	}
 
@@ -47,6 +54,13 @@ public class RoleService {
 	public RoleDTO findByPk(long id) {
 
 		return dao.findByPk(id);
+
+	}
+
+	@Transactional(readOnly = true)
+	public RoleDTO findByName(String name) {
+
+		return dao.findByUniqueKey("name", name);
 
 	}
 
