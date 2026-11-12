@@ -29,6 +29,13 @@ public class RoleService {
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void update(RoleDTO dto) {
+
+		RoleDTO existDto = findByName(dto.getName());
+
+		if (existDto != null && existDto.getId() != dto.getId()) {
+			throw new RuntimeException("role name is already exist");
+		}
+
 		dao.update(dto);
 	}
 
