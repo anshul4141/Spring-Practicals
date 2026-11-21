@@ -1,0 +1,51 @@
+<div align="center">
+    <h2>Add User</h2>
+    <h3 style="color: red;">{{form.errorMessage}}</h3>
+    <h3 style="color: green;">{{form.successMessage}}</h3>
+    <form (submit)="save()">
+
+        <table>
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" name="firstName" [(ngModel)]="form.data.firstName"
+                        placeholder="Enter your first name"></td>
+                <td style="color: red;">{{form.inputerror.firstName}}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" name="lastName" [(ngModel)]="form.data.lastName"
+                        placeholder="Enter your last name"></td>
+                <td style="color: red;">{{form.inputerror.lastName}}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>
+                    <select name="roleId" [(ngModel)]="form.data.roleId">
+                        <option value="">------------select-------------</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Student</option>
+                        <option value="3">College</option>
+                        <option value="4">Faculty</option>
+                        <option value="5">KIOSK</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Login</th>
+                <td><input type="text" name="login" [(ngModel)]="form.data.login" placeholder="Enter your login"></td>
+                <td style="color: red;">{{form.inputerror.login}}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td><input type="password" name="password" [(ngModel)]="form.data.password"
+                        placeholder="Enter your password"></td>
+                <td style="color: red;">{{form.inputerror.password}}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="submit" value="save"></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
