@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpserviceService } from '../httpservice.service';
 
 @Component({
@@ -17,7 +17,12 @@ export class LoginComponent {
     inputerror: {}
   }
 
-  constructor(private router: Router, private httpService: HttpserviceService) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private httpService: HttpserviceService) { 
+     this.activatedRoute.queryParams.subscribe((params: any) => {
+      console.log('params:', params)
+      this.form.successMessage = params["successMessage"];
+    })
+  }
 
   login() {
 

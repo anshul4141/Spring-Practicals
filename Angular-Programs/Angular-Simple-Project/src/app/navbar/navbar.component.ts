@@ -31,7 +31,7 @@ export class NavbarComponent {
 
   logout(){
     localStorage.clear();
-    this.router.navigateByUrl('login')
+    this.router.navigateByUrl('login?successMessage=Logout Successfully')
   }
 
 }

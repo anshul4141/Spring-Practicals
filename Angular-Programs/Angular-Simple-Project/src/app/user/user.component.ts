@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpserviceService } from '../httpservice.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html'
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
 
   endpoint: any = 'http://localhost:8080/User/save';
 
@@ -16,7 +17,32 @@ export class UserComponent {
     inputerror: {}
   }
 
-  constructor(private httpService: HttpserviceService) { }
+  constructor(private httpService: HttpserviceService, private activatedRoute: ActivatedRoute) {
+
+    this.activatedRoute.params.subscribe((params: any) => {
+      this.form.data.id = params["id"];
+      console.log(this.form.data.id)
+    })
+
+  }
+
+  ngOnInit() {
+    if (this.form.data.id) {
+      this.display();
+    }
+  }
+
+  display() {
+
+    this.httpService.get('http://localhost:8080/User/get/' + this.form.data.id, (response: any) => {
+      if (response.success == true) {
+        this.form.data = response.result.data;
+      } else {
+        this.form.errorMessage = 'record not found'
+      }
+
+    })
+  }
 
   save() {
     this.form.errorMessage = ''

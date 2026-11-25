@@ -1,5 +1,6 @@
 <div align="center">
-    <h2>Add User</h2>
+    <h2 *ngIf="form.data.id">Update User</h2>
+    <h2 *ngIf="!form.data.id">Add user</h2>
     <h3 style="color: red;">{{form.errorMessage}}</h3>
     <h3 style="color: green;">{{form.successMessage}}</h3>
     <form (submit)="save()">
@@ -21,7 +22,7 @@
                 <th>Role</th>
                 <td>
                     <select name="roleId" [(ngModel)]="form.data.roleId">
-                        <option value="">------------select-------------</option>
+                        <option value="undefined">------------select-------------</option>
                         <option value="1">Admin</option>
                         <option value="2">Student</option>
                         <option value="3">College</option>

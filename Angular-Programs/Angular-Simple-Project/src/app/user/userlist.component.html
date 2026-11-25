@@ -1,5 +1,9 @@
 <div align="center">
 
+    <h1>User List</h1>
+    <h2 style="color: red;">{{form.errorMessage}}</h2>
+    <h2 style="color: green;">{{form.successMessage}}</h2>
+
     <table>
 
         <tr>
@@ -7,7 +11,7 @@
             <td><input type="text" name="firstName" [(ngModel)]="form.searchParam.firstName"
                     placeholder="search by firstName"></td>
             <td><button (click)="search()">search</button></td>
-              <td><button (click)="reset()">reset</button></td>
+            <td><button (click)="reset()">reset</button></td>
         </tr>
 
     </table>
@@ -15,19 +19,29 @@
     <table width="100%" border="1px">
 
         <tr>
+            <th>Delete</th>
+            <th>Image</th>
             <th>Id</th>
             <th>FirstName</th>
             <th>LastName</th>
             <th>Role</th>
             <th>Login</th>
+            <th>Edit</th>
         </tr>
 
         <tr *ngFor="let user of form.list" align="center">
+            <td><input type="checkbox" (click)="onClickCheckBox(user.id)"></td>
+            <td *ngIf="user.imageId"><img src="http://localhost:8080/User/profilePic/{{user.id}}" height="55px"
+                    width="80px"></td>
+            <td *ngIf="!user.imageId"><img
+                    src="data:image/jpeg;base64,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"
+                    height="55px" width="80px"></td>
             <td>{{user.id}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
             <td>{{user.roleName}}</td>
             <td>{{user.login}}</td>
+            <td><a (click)="edit('/user/'+user.id)">Edit</a></td>
         </tr>
 
     </table>
@@ -36,6 +50,7 @@
         <tr>
 
             <td><button [disabled]="form.pageNo == 0" (click)="previous()">previous</button></td>
+            <td align="center"><button (click)="delete()">delete</button></td>
             <td align="right"><button [disabled]="form.list.length < 5" (click)="next()">next</button></td>
 
         </tr>

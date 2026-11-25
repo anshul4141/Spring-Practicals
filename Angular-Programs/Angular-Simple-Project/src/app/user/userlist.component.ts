@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpserviceService } from '../httpservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userlist',
@@ -12,10 +13,11 @@ export class UserlistComponent implements OnInit {
     searchParam: {},
     errorMessage: '',
     successMessage: '',
-    pageNo: 0
+    pageNo: 0,
+    ids: []
   }
 
-  constructor(private httpservice: HttpserviceService) { }
+  constructor(private httpservice: HttpserviceService, private router: Router) { }
 
   ngOnInit(): void {
     console.log('in user list ngOnInit method');
@@ -33,8 +35,8 @@ export class UserlistComponent implements OnInit {
   }
 
   search() {
-    this.form.errorMessage = ''
-    this.form.successMessage = ''
+    // this.form.errorMessage = ''
+    // this.form.successMessage = ''
 
     this.httpservice.post('http://localhost:8080/User/search/' + this.form.pageNo, this.form.searchParam, (response: any) => {
 
@@ -49,7 +51,25 @@ export class UserlistComponent implements OnInit {
 
   }
 
-  reset(){
+  onClickCheckBox(id: any) {
+    this.form.ids = id;
+    console.log('delete id ==', this.form.ids)
+  }
+
+  delete() {
+    this.httpservice.get('http://localhost:8080/User/delete/' + this.form.ids, (response: any) => {
+      if (response.success == true) {
+        this.form.successMessage = response.result.message
+      }
+      this.search();
+    })
+  }
+
+  edit(url: any) {
+    this.router.navigateByUrl(url);
+  }
+
+  reset() {
     location.reload();
   }
 
