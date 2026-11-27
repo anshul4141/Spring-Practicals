@@ -21,6 +21,7 @@ export class LoginComponent {
      this.activatedRoute.queryParams.subscribe((params: any) => {
       console.log('params:', params)
       this.form.successMessage = params["successMessage"];
+      this.form.errorMessage = params["errorMessage"];
     })
   }
 

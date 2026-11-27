@@ -1,5 +1,6 @@
 package com.rays.ctl;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -68,7 +69,7 @@ public class UserCtl extends BaseCtl {
 	}
 
 	@GetMapping("delete/{ids}")
-	public ORSResponse save(@PathVariable long[] ids) {
+	public ORSResponse delete(@PathVariable long[] ids) {
 
 		ORSResponse res = new ORSResponse();
 
@@ -83,7 +84,7 @@ public class UserCtl extends BaseCtl {
 	}
 
 	@GetMapping("get/{id}")
-	public ORSResponse save(@PathVariable long id) {
+	public ORSResponse get(@PathVariable long id) {
 
 		ORSResponse res = new ORSResponse();
 
@@ -124,54 +125,70 @@ public class UserCtl extends BaseCtl {
 
 	@PostMapping("/profilePic/{userId}")
 	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file) {
-		
+
 		AttachmentDTO attachmentDto = new AttachmentDTO(file);
-		
+
 		attachmentDto.setDescription("profile pic");
-		
+
 		attachmentDto.setUserId(userId);
-		
+
 		UserDTO userDto = userService.findByPk(userId);
-		
+
 		if (userDto.getImageId() != null && userDto.getImageId() > 0) {
 			attachmentDto.setId(userDto.getImageId());
 		}
-		
+
 		Long imageId = attachmentService.save(attachmentDto);
-		
+
 		if (userDto.getImageId() == null) {
 			userDto.setImageId(imageId);
 			userService.update(userDto);
 		}
-		
+
 		ORSResponse res = new ORSResponse();
-		
+
 		res.addResult("imageId", imageId);
-		
+
 		res.setSuccess(true);
-		
+
 		return res;
 	}
 
+	
 	@GetMapping("/profilePic/{userId}")
 	public void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
+
+		OutputStream out = null;
+
 		try {
+
 			UserDTO userDto = userService.findByPk(userId);
+
 			AttachmentDTO attachmentDTO = null;
+
 			if (userDto != null) {
 				attachmentDTO = attachmentService.findById(userDto.getImageId());
 			}
+
 			if (attachmentDTO != null) {
+
 				response.setContentType(attachmentDTO.getType());
-				OutputStream out = response.getOutputStream();
+
+				out = response.getOutputStream();
 				out.write(attachmentDTO.getDoc());
-				out.close();
 			} else {
 				response.setContentType("application/json");
 				response.getWriter().write("ERROR: File not found");
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

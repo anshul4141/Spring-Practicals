@@ -1,6 +1,7 @@
 package com.rays.form;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
@@ -20,8 +21,10 @@ public class UserForm extends BaseForm {
 	@NotEmpty(message = "password is required")
 	private String password;
 
-	@NotEmpty(message = "role is required")
+	@NotNull(message = "role is required")
 	private Long roleId;
+
+	private Long imageId;
 
 	public String getFirstName() {
 		return firstName;
@@ -63,6 +66,14 @@ public class UserForm extends BaseForm {
 		this.roleId = roleId;
 	}
 
+	public Long getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(Long imageId) {
+		this.imageId = imageId;
+	}
+
 	@Override
 	public BaseDTO getDto() {
 
@@ -73,6 +84,7 @@ public class UserForm extends BaseForm {
 		dto.setLogin(login);
 		dto.setPassword(password);
 		dto.setRoleId(roleId);
+		dto.setImageId(imageId);
 
 		return dto;
 

@@ -17,6 +17,8 @@ export class UserComponent implements OnInit {
     inputerror: {}
   }
 
+  selectedFile: any
+
   constructor(private httpService: HttpserviceService, private activatedRoute: ActivatedRoute) {
 
     this.activatedRoute.params.subscribe((params: any) => {
@@ -62,9 +64,28 @@ export class UserComponent implements OnInit {
 
       if (response.success == true) {
         this.form.successMessage = response.result.message;
+        this.form.data = response.result.data;
+      }
+
+      if (this.selectedFile) {
+        this.myFile()
       }
 
     });
+  }
+
+  onChageProfilePic(event: any) {
+    this.selectedFile = event.target.files.item(0);
+    console.log("profile pic:", this.selectedFile)
+  }
+
+  myFile() {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    this.httpService.post('http://localhost:8080/User/profilePic/' + this.form.data.id, formData, (response: any) => {
+      console.log('response:', response);
+    })
+
   }
 
 }
